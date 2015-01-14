@@ -1,6 +1,6 @@
 <?php
 
-
+require 'environment.php';
 require 'code/require.php';
 
 $timePeriods = TimePeriod::all_time_periods();
