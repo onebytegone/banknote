@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * Stores data about a given time range. Contains a pointer
+ * to the last time range. When this TimePeriod is the first
+ * the LastPeriod should point to a TimePeriod period for
+ * the initial state of the sequence.
+ *
+ * @copyright 2015 Ethan Smith
+ */
+
+class TimePeriod {
+    public $id = '';
+    public $name = '';
+    public $startDate = '';
+    public $endDate = '';
+    private $lastPeriod = null;
+    public static $time_periods = null;
+
+    function __construct($lastPeriod = null) {
+    	$this->lastPeriod = $lastPeriod;
+    }
+
+    public function LastPeriod() {
+    	return $this->lastPeriod;
+    }
+
+    static public function compare($a, $b) {
+        return
+            $a->id == $b->id &&
+            $a->startDate == $b->startDate &&
+            $a->endDate == $b->endDate;
+    }
+
+    static public function all_time_periods($forceLoad = false) {
+        if (self::$time_periods && !$forceLoad) {
+            return self::$time_periods;
+        }
+
+        $rawData = file_get_contents(rtrim(__DIR__, '/').'/../../../data/time-periods.json');
+
+        $jsonData = json_decode($rawData);
+
+        $periods = array();
+
+        foreach ($jsonData as $item) {
+            $last = null;
+            if ($item->prevID) {
+                $last = self::findTimePeriodWithID($periods, $item->prevID);
+            }
+
+            $period = new TimePeriod($last);
+            $period->id = $item->id;
+            $period->name = $item->name;
+            $period->startDate = $item->start;
+            $period->endDate = $item->end;
+
+            $periods[] = $period;
+        }
+
+        return $periods;
+    }
+
+    static public function findTimePeriodWithID($timePeriods, $id) {
+        $foundItems = array_filter($timePeriods, function ($item) use ($id) {
+            return $item->id == $id;
+        });
+
+        return array_shift($foundItems);
+    }
+}

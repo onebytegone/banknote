@@ -1,0 +1,93 @@
+[
+    {
+        "id": "initial",
+        "name": "Initial",
+        "start": "0/0",
+        "end": "0/0",
+        "prevID": null
+    },
+    {
+        "id": "jan",
+        "name": "January",
+        "start": "1/1",
+        "end": "1/31",
+        "prevID": "initial"
+    },
+    {
+        "id": "feb",
+        "name": "February",
+        "start": "2/1",
+        "end": "2/29",
+        "prevID": "jan"
+    },
+    {
+        "id": "mar",
+        "name": "March",
+        "start": "3/1",
+        "end": "3/31",
+        "prevID": "feb"
+    },
+    {
+        "id": "april",
+        "name": "April",
+        "start": "4/1",
+        "end": "4/30",
+        "prevID": "mar"
+    },
+    {
+        "id": "may",
+        "name": "May",
+        "start": "5/1",
+        "end": "5/31",
+        "prevID": "april"
+    },
+    {
+        "id": "june",
+        "name": "June",
+        "start": "6/1",
+        "end": "6/30",
+        "prevID": "may"
+    },
+    {
+        "id": "july",
+        "name": "July",
+        "start": "7/1",
+        "end": "7/31",
+        "prevID": "june"
+    },
+    {
+        "id": "aug",
+        "name": "August",
+        "start": "8/1",
+        "end": "8/31",
+        "prevID": "july"
+    },
+    {
+        "id": "sept",
+        "name": "September",
+        "start": "9/1",
+        "end": "9/30",
+        "prevID": "aug"
+    },
+    {
+        "id": "oct",
+        "name": "October",
+        "start": "10/1",
+        "end": "10/31",
+        "prevID": "sept"
+    },
+    {
+        "id": "nov",
+        "name": "November",
+        "start": "11/1",
+        "end": "11/30",
+        "prevID": "oct"
+    },
+    {
+        "id": "dec",
+        "name": "December",
+        "start": "12/1",
+        "end": "12/31",
+        "prevID": "nov"
+    }
+]
