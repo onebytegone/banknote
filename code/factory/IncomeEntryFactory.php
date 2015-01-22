@@ -6,14 +6,19 @@
  * @copyright 2015 Ethan Smith
  */
 
-class IncomeEntryFactory {
+class IncomeEntryFactory extends EntryFactory{
    public function buildEntry($data) {
-      $entry = new IncomeEntry();
-      $entry->id = $data['id'];
-      $entry->amount = $data['amount'];
-      $entry->date = $data['date'];
-      $entry->notes = $data['notes'];
-      $entry->source = $data['source'];
+      $entry = $this->assembleEntry(
+         'IncomeEntry',
+         array(
+            'id' => 'id',
+            'amount' => 'amount',
+            'date' => 'date',
+            'notes' => 'notes',
+            'source' => 'source',
+            ),
+         $data
+         );
       $entry->timePeriod = TimePeriod::fetchTimePeriodByMonthAndDay($entry->date);
 
       return $entry;
