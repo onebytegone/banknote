@@ -5,3 +5,4 @@ require 'model/temporal/TemporalItem.php';
 require 'model/temporal/TemporalItemStore.php';
 require 'model/IncomeEntry.php';
 require 'factory/IncomeEntryFactory.php';
+require 'calculate/IncomeCalculate.php';
