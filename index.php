@@ -5,41 +5,50 @@ require 'code/require.php';
 
 $timePeriods = TimePeriod::all_time_periods();
 
-$factory = new IncomeEntryFactory();
-$incomeItems = array();
+$initialFundEntry = new AmountEntry();
+$initialFundEntry->timePeriod = $timePeriods[0];
+$initialFundEntry->amount = 40;
 
-$incomeItems[] = $factory->buildEntry(array(
-   'id' => '1',
-   'amount' => 45.00,
-   'date' => '1/5',
-   'notes' => '',
-   'source' => 'misc',
-   ));
-$incomeItems[] = $factory->buildEntry(array(
-   'id' => '2',
-   'amount' => 45.00,
-   'date' => '1/5',
-   'notes' => '',
-   'source' => 'interest',
-   ));
-$incomeItems[] = $factory->buildEntry(array(
-   'id' => '3',
-   'amount' => 45.00,
-   'date' => '3/5',
-   'notes' => '',
-   'source' => 'misc',
-   ));
+$randToFundEntry = new AmountEntry();
+$randToFundEntry->timePeriod = $timePeriods[3];
+$randToFundEntry->amount = 30;
 
-$incomeStore = new TemporalItemStore($incomeItems);
-$incomeCalculate = new IncomeCalculate();
+$toFundStore = new TemporalItemStore(
+   array(
+      $initialFundEntry,
+      $randToFundEntry
+      )
+   );
 
-array_walk($timePeriods, function($timePeriod) use ($incomeStore, $incomeCalculate) {
+$fundStore = new TemporalItemStore(array());
+
+array_walk($timePeriods, function($timePeriod) use ($fundStore, $toFundStore) {
+   $entry = new AmountEntry();
+   $entry->timePeriod = $timePeriod;
+
+   // Add to fund if have entry to add
+   $toFundEntry = $toFundStore->firstItemForTimePeriod($timePeriod);
+   if ($toFundEntry) {
+      $entry->amount = $toFundEntry->amount;
+   }
+
+   // Add from last time period if possible
+   if ($timePeriod->LastPeriod()) {
+      $lastEntry = $fundStore->firstItemForTimePeriod($timePeriod->LastPeriod());
+      $entry->amount += $lastEntry->amount;
+   }
+
+   $fundStore->storeItem($entry);
+});
+
+
+array_walk($timePeriods, function($timePeriod) use ($fundStore) {
    // Skip 'Initial' time period
    if ($timePeriod->LastPeriod() == null) {
       return;
    }
 
-   $entries = $incomeStore->itemsForTimePeriod($timePeriod);
-   $total = $incomeCalculate->totalOfEntries($entries);;
-   echo "{$timePeriod->name}: \${$total} <br>";
+   $entry = $fundStore->firstItemForTimePeriod($timePeriod);
+   echo "{$timePeriod->name}: \${$entry->amount} <br>";
 });
+
