@@ -5,29 +5,41 @@ require 'code/require.php';
 
 $timePeriods = TimePeriod::all_time_periods();
 
-$a = new TemporalItem();
-$a->id = "item_a";
-$a->timePeriod = $timePeriods[0];
-var_dump($a);
-echo "<br>";
+$factory = new IncomeEntryFactory();
+$incomeItems = array();
 
-$b = new TemporalItem();
-$b->id = "item_b";
-$b->timePeriod = $timePeriods[1];
+$incomeItems[] = $factory->buildEntry(array(
+   'id' => '1',
+   'amount' => 45.00,
+   'date' => '1/5',
+   'notes' => '',
+   'source' => 'misc',
+   ));
+$incomeItems[] = $factory->buildEntry(array(
+   'id' => '2',
+   'amount' => 45.00,
+   'date' => '1/5',
+   'notes' => '',
+   'source' => 'interest',
+   ));
+$incomeItems[] = $factory->buildEntry(array(
+   'id' => '3',
+   'amount' => 45.00,
+   'date' => '3/5',
+   'notes' => '',
+   'source' => 'misc',
+   ));
 
-$c = new TemporalItem();
-$c->id = "item_c";
-$c->timePeriod = $timePeriods[1];
+$incomeStore = new TemporalItemStore($incomeItems);
+$incomeCalculate = new IncomeCalculate();
 
-$items = array($a, $b, $c);
-$store = new TemporalItemStore($items);
+array_walk($timePeriods, function($timePeriod) use ($incomeStore, $incomeCalculate) {
+   // Skip 'Initial' time period
+   if ($timePeriod->LastPeriod() == null) {
+      return;
+   }
 
-var_dump($store->itemsForTimePeriod($timePeriods[0]));
-echo "<br>";
-var_dump($store->itemsForTimePeriod($timePeriods[1]));
-echo "<br>";
-var_dump($store->itemsForTimePeriod($timePeriods[2]));
-echo "<br>";
-var_dump($store->itemsForTimePeriod($timePeriods[2]->LastPeriod()));
-echo "<br>";
-var_dump($store->itemWithID('item_b'));
+   $entries = $incomeStore->itemsForTimePeriod($timePeriod);
+   $total = $incomeCalculate->totalOfEntries($entries);;
+   echo "{$timePeriod->name}: \${$total} <br>";
+});
