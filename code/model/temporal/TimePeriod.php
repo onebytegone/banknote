@@ -68,4 +68,16 @@ class TimePeriod {
 
         return array_shift($foundItems);
     }
+
+    static public function findTimePeriodByMonthAndDay($timePeriods, $date) {
+        $foundItems = array_filter($timePeriods, function ($item) use ($date) {
+            return strtotime($item->startDate) <= strtotime($date) && strtotime($item->endDate) > strtotime($date);
+        });
+
+        return array_shift($foundItems);
+    }
+
+    static public function fetchTimePeriodByMonthAndDay($date) {
+        return self::findTimePeriodByMonthAndDay(self::all_time_periods(), $date);
+    }
 }
