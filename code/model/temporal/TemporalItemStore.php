@@ -13,6 +13,14 @@ class TemporalItemStore {
         $this->items = $items;
     }
 
+    public function storeItem($item) {
+        $this->items[] = $item;
+    }
+
+    public function firstItemForTimePeriod($timePeriod) {
+        return array_shift($this->itemsForTimePeriod($timePeriod));
+    }
+
     public function itemsForTimePeriod($timePeriod) {
     	return array_filter($this->items, function ($item) use ($timePeriod) {
             return TimePeriod::compare($item->timePeriod, $timePeriod);
