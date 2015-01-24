@@ -34,4 +34,15 @@ class TemporalItemStore {
 
         return array_shift($foundItems);
     }
+
+    public function generateValueSummary($formatter, $timePeriods) {
+        $self = $this;
+        $summary = array_reduce($timePeriods, function($carry, $timePeriod) use ($self, $formatter) {
+            $entries = $self->itemsForTimePeriod($timePeriod);
+            $carry[] = $formatter->formatListOfObjects($entries);
+
+            return $carry;
+        }, array());
+        return $summary;
+    }
 }

@@ -20,35 +20,21 @@ $toFundStore = new TemporalItemStore(
       )
    );
 
-$fundStore = new TemporalItemStore(array());
+$startingFundStore = new TemporalItemStore(array());
+$amountCalculate = new AmountCalculate();
+$newFundStore = $amountCalculate->sumAmountsToStore($startingFundStore, $toFundStore, $timePeriods);
 
-array_walk($timePeriods, function($timePeriod) use ($fundStore, $toFundStore) {
-   $entry = new AmountEntry();
-   $entry->timePeriod = $timePeriod;
-
-   // Add to fund if have entry to add
-   $toFundEntry = $toFundStore->firstItemForTimePeriod($timePeriod);
-   if ($toFundEntry) {
-      $entry->amount = $toFundEntry->amount;
-   }
-
-   // Add from last time period if possible
-   if ($timePeriod->LastPeriod()) {
-      $lastEntry = $fundStore->firstItemForTimePeriod($timePeriod->LastPeriod());
-      $entry->amount += $lastEntry->amount;
-   }
-
-   $fundStore->storeItem($entry);
-});
-
-
-array_walk($timePeriods, function($timePeriod) use ($fundStore) {
+$tableFormatter = new ItemStoreTableFormatter();
+$valueFormatter = new SingleAmountEntryOutputFormatter("$%.2f");
+$months = array_reduce($timePeriods, function($carry, $timePeriod) {
    // Skip 'Initial' time period
    if ($timePeriod->LastPeriod() == null) {
-      return;
+      return $carry;
    }
 
-   $entry = $fundStore->firstItemForTimePeriod($timePeriod);
-   echo "{$timePeriod->name}: \${$entry->amount} <br>";
-});
-
+   $carry[] = $timePeriod->name;
+   return $carry;
+}, array(''));
+echo $tableFormatter->buildTable($startingFundStore, array_slice($timePeriods, 1), $valueFormatter, $months);
+echo $tableFormatter->buildTable($newFundStore, array_slice($timePeriods, 1), $valueFormatter, $months);
+echo $tableFormatter->buildTable($toFundStore, array_slice($timePeriods, 1), $valueFormatter, $months);
