@@ -11,3 +11,4 @@ require 'factory/IncomeEntryFactory.php';
 require 'factory/AmountEntryFactory.php';
 require 'factory/ExpenseEntryFactory.php';
 require 'calculate/IncomeCalculate.php';
+require 'calculate/AmountCalculate.php';
