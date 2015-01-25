@@ -8,27 +8,46 @@
 
 class ItemStoreTableFormatter {
 
-   public function buildTable($itemStore, $timePeriods, $fieldFormatter, $header = null) {
+   public function buildListTableOfEntries($items, $fieldFormatter, $header = null) {
       $table = new TableElement();
 
       if ($header) {
          $table->addRow($header);
       }
 
-      // TODO: allow multiple rows
-      $this->addTableRowForField($table, $itemStore, $fieldFormatter, $timePeriods, "Fund");
+      array_walk($items, function ($item) use ($table, $fieldFormatter) {
+         $table->addRow($fieldFormatter->formatObject($item));
+      });
 
       return $table->exportTableAsHTML();
-
    }
 
-   public function addTableRowForField(&$table, $itemStore, $formatter, $timePeriods, $label = null) {
-      $items = $itemStore->generateValueSummary($formatter, $timePeriods);
 
-      if ($label) {
-         array_unshift($items, $label);
+   public function buildTableByTimePeriod($itemStores, $timePeriods, $fieldFormatter, $header = null, $showsRowLabel = true) {
+      $table = new TableElement();
+
+      if ($header) {
+         $table->addRow($header);
       }
 
-      $table->addRow($items);
+      $self = $this;
+      array_walk(array_keys($itemStores), function ($name) use ($self, $table, $fieldFormatter, $timePeriods, $itemStores, $showsRowLabel) {
+         $items = $itemStores[$name]->generateValueSummary($fieldFormatter, $timePeriods);
+
+         $self->addLabelToItems($items, $showsRowLabel, $name);
+         $table->addRow($items);
+      });
+
+      return $table->exportTableAsHTML();
+   }
+
+
+   public function addLabelToItems(&$items, $showsLabel, $label = null) {
+      $label = $showsLabel ? $name : null;
+      $label = $showsLabel && !$label ? '' : $label;
+
+      if ($label || is_string($label)) {
+         array_unshift($items, $label);
+      }
    }
 }

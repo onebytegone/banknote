@@ -13,6 +13,10 @@ class TemporalItemStore {
         $this->items = $items;
     }
 
+    public function allItems() {
+        return TemporalItemStore::sort_items_by_time_period($this->items);
+    }
+
     public function storeItem($item) {
         $this->items[] = $item;
     }
@@ -44,5 +48,10 @@ class TemporalItemStore {
             return $carry;
         }, array());
         return $summary;
+    }
+
+    static public function sort_items_by_time_period($items) {
+        // TODO: sort
+        return $items;
     }
 }

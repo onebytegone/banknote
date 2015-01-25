@@ -6,10 +6,9 @@
  * @copyright 2015 Ethan Smith
  */
 
-class ExpenseEntry extends TemporalItem {
+class ExpenseEntry extends AmountEntry {
     public $name = '';
     public $fundID = '';
-    public $amount = 0;
     public $date = '';
     public $notes = '';
 }

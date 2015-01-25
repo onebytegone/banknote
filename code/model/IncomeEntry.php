@@ -6,9 +6,8 @@
  * @copyright 2015 Ethan Smith
  */
 
-class IncomeEntry extends TemporalItem {
+class IncomeEntry extends AmountEntry {
     public $source = '';
-    public $amount = 0;
     public $date = '';
     public $notes = '';
 }

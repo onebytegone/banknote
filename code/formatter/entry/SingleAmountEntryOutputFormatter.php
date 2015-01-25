@@ -20,6 +20,10 @@ class SingleAmountEntryOutputFormatter implements EntryFormatOutput {
    }
 
    public function formatObject($object) {
+      return $this->formattedAmountField($object);
+   }
+
+   public function formattedAmountField($object) {
       $amount = $object->amount;
 
       if ($this->returnEmptyWhenZero && $amount == 0) {
