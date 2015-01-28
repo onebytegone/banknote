@@ -31,7 +31,7 @@ class TemporalItemStore {
         $this->items[] = $item;
     }
 
-    public function firstItemForTimePeriod($timePeriod) {
+    public function anyItemForTimePeriod($timePeriod) {
         return array_shift($this->itemsForTimePeriod($timePeriod));
     }
 

@@ -28,7 +28,7 @@ class AmountCalculate {
       }
 
       array_walk($timePeriods, function($timePeriod) use ($summed, $storeToAdd) {
-         $entry = $summed->firstItemForTimePeriod($timePeriod);
+         $entry = $summed->anyItemForTimePeriod($timePeriod);
          if (!$entry) {
             // AmountEntry doesn't exist, create it
             $entry = new AmountEntry();
@@ -45,7 +45,7 @@ class AmountCalculate {
 
          // Add from last time period if possible
          if ($timePeriod->LastPeriod()) {
-            $lastEntry = $summed->firstItemForTimePeriod($timePeriod->LastPeriod());
+            $lastEntry = $summed->anyItemForTimePeriod($timePeriod->LastPeriod());
             $entry->amount += $lastEntry->amount;
          }
 
