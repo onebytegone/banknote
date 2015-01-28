@@ -13,10 +13,20 @@ class TemporalItemStore {
         $this->items = $items;
     }
 
+    /**
+     * Returns all the stored objects sorted by time period.
+     *
+     * @return array - list of items stored
+     */
     public function allItems() {
         return TemporalItemStore::sort_items_by_time_period($this->items);
     }
 
+    /**
+     * Stores the given item.
+     *
+     * @param $item object - item to store
+     */
     public function storeItem($item) {
         $this->items[] = $item;
     }
