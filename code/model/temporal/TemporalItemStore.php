@@ -19,7 +19,8 @@ class TemporalItemStore {
      * @return array - list of items stored
      */
     public function allItems() {
-        return TemporalItemStore::sort_items_by_time_period($this->items);
+        TemporalItemStore::sort_items_by_time_period($this->items);
+        return $this->items;
     }
 
     /**
@@ -60,8 +61,9 @@ class TemporalItemStore {
         return $summary;
     }
 
-    static public function sort_items_by_time_period($items) {
-        // TODO: sort
-        return $items;
+    static public function sort_items_by_time_period(&$items) {
+        usort($items, function($a, $b) {
+            return $a->timePeriod->compareTo($b->timePeriod);
+        });
     }
 }

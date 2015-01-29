@@ -32,6 +32,14 @@ class TimePeriod {
             $a->endDate == $b->endDate;
     }
 
+    public function compareTo($otherItem) {
+        if ($this->startDate == $otherItem->startDate) {
+            return 0;
+        }
+
+        return (strtotime($this->startDate) < strtotime($otherItem->startDate)) ? -1 : 1;
+    }
+
     static public function all_time_periods($forceLoad = false) {
         if (self::$time_periods && !$forceLoad) {
             return self::$time_periods;
