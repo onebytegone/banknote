@@ -37,7 +37,7 @@ class TemporalItemStore {
 
     public function itemsForTimePeriod($timePeriod) {
     	return array_filter($this->items, function ($item) use ($timePeriod) {
-            return TimePeriod::compare($item->timePeriod, $timePeriod);
+            return TimePeriod::areEquivalent($item->timePeriod, $timePeriod);
         });
     }
 

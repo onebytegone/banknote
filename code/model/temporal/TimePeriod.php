@@ -25,7 +25,7 @@ class TimePeriod {
     	return $this->lastPeriod;
     }
 
-    static public function compare($a, $b) {
+    static public function areEquivalent($a, $b) {
         return
             $a->id == $b->id &&
             $a->startDate == $b->startDate &&
