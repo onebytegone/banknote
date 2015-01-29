@@ -55,7 +55,22 @@ $sources = array_reduce($incomeSourceData, function ($carry, $item) {
    return $carry;
 }, array());
 
+/*
+$sources = array_map(function($item) use ($timePeriods) {
+   $sourceStore = new TemporalItemStore();
 
+   array_walk($timePeriods, function($timePeriod) use ($sourceStore, $item){
+      $entry = new AmountEntry();
+      $entry->id = $item['id'];
+      $entry->timePeriod = $timePeriod;
+      $entry->amount = 0;
+      $sourceStore->storeItem($entry);
+   });
+
+   return $sourceStore;
+}, $incomeSourceData);
+
+*/
 
 array_walk($sources, function($sourceStore) use ($incomeStore) {
    array_walk(TimePeriod::all_time_periods(), function($timePeriod) use ($incomeStore, $sourceStore) {
@@ -85,3 +100,53 @@ $months = array_reduce(TimePeriod::all_time_periods(), function($carry, $timePer
    return $carry;
 }, array(''));
 echo $tableFormatter->buildTableByTimePeriod($sources, array_slice(TimePeriod::all_time_periods(), 1), $valueFormatter, $months);
+
+
+exit();
+
+
+
+$timePeriods = TimePeriod::all_time_periods();
+
+$initialFundEntry = new IncomeEntry();
+$initialFundEntry->timePeriod = $timePeriods[0];
+$initialFundEntry->amount = 40;
+
+$randToFundEntry = new IncomeEntry();
+$randToFundEntry->timePeriod = $timePeriods[3];
+$randToFundEntry->source = 'money';
+$randToFundEntry->date = '3/3';
+$randToFundEntry->amount = 30;
+
+$toFundStore = new TemporalItemStore(
+   array(
+      $initialFundEntry,
+      $randToFundEntry
+      )
+   );
+
+$startingFundStore = new TemporalItemStore(array());
+$amountCalculate = new AmountCalculate();
+$newFundStore = $amountCalculate->sumAmountsToStore($startingFundStore, $toFundStore, $timePeriods);
+
+$fundList = array(
+   'fund a' => $newFundStore,
+   'fund b' => $newFundStore,
+   );
+
+$tableFormatter = new ItemStoreTableFormatter();
+$valueFormatter = new SingleAmountEntryOutputFormatter("$%.2f");
+$months = array_reduce($timePeriods, function($carry, $timePeriod) {
+   // Skip 'Initial' time period
+   if ($timePeriod->LastPeriod() == null) {
+      return $carry;
+   }
+
+   $carry[] = $timePeriod->name;
+   return $carry;
+}, array(''));
+$entries = array($randToFundEntry);
+echo $tableFormatter->buildListTableOfEntries($entries, new IncomeEntrySummaryFormatter(), array('date', 'source', 'amount'));
+echo $tableFormatter->buildTableByTimePeriod(array($startingFundStore), array_slice($timePeriods, 1), $valueFormatter, $months);
+echo $tableFormatter->buildTableByTimePeriod($fundList, array_slice($timePeriods, 1), $valueFormatter, $months);
+echo $tableFormatter->buildTableByTimePeriod(array($toFundStore), array_slice($timePeriods, 1), $valueFormatter, $months);
