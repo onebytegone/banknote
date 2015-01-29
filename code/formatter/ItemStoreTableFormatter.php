@@ -57,9 +57,9 @@ class ItemStoreTableFormatter {
     *
     * @param &$items array - array with the items. may be added to.
     * @param $showsLabel boolean - should a label be shown
-    * @param $label string - string for the label
+    * @param $name string - string for the label
     */
-   public function addLabelToItems(&$items, $showsLabel, $label = null) {
+   public function addLabelToItems(&$items, $showsLabel, $name = null) {
       $label = $showsLabel ? $name : null;
       $label = $showsLabel && !$label ? '' : $label;
 
