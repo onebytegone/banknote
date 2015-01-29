@@ -3,6 +3,38 @@
 require 'environment.php';
 require 'code/require.php';
 
+
+
+
+
+$incomeData = json_decode(file_get_contents('test_income.json'), true);
+$incomeStore = new TemporalItemStore();
+$incomeFactory = new IncomeEntryFactory();
+
+array_walk($incomeData, function($item) use ($incomeStore, $incomeFactory){
+   $incomeStore->storeItem($incomeFactory->buildEntry($item));
+});
+
+$incomeItems = $incomeStore->allItems();
+
+// Sort income items by date
+usort($incomeItems, function($a, $b) {
+   if ($a->date == $b->date) {
+      return 0;
+   }
+   return (strtotime($a->date) < strtotime($b->date)) ? -1 : 1;
+});
+
+
+// Income item list
+$tableFormatter = new ItemStoreTableFormatter();
+echo $tableFormatter->buildListTableOfEntries($incomeItems, new IncomeEntrySummaryFormatter(), array('date', 'source', 'amount'));
+
+
+exit();
+
+
+
 $timePeriods = TimePeriod::all_time_periods();
 
 $initialFundEntry = new IncomeEntry();
