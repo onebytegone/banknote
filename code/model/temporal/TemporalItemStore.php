@@ -9,7 +9,7 @@
 class TemporalItemStore {
     private $items = array();
 
-    function __construct($items) {
+    function __construct($items = array()) {
         $this->items = $items;
     }
 
