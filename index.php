@@ -102,6 +102,37 @@ $months = array_reduce(TimePeriod::all_time_periods(), function($carry, $timePer
 echo $tableFormatter->buildTableByTimePeriod($sources, array_slice(TimePeriod::all_time_periods(), 1), $valueFormatter, $months);
 
 
+
+
+
+
+
+
+
+
+
+
+$incomeRoutingData = json_decode(file_get_contents('test_income_to_fund_routing.json'), true);
+$incomeRoutingStore = new TemporalItemStore();
+
+array_walk($incomeRoutingData, function($item) use ($incomeRoutingStore){
+   $entry = new AmountEntry();
+   $entry->amount = $item['amount'];
+   $entry->fund = $item['fund'];
+   $entry->timePeriod = TimePeriod::findTimePeriodWithID(TimePeriod::all_time_periods(), $item['timeperiod']);
+   $incomeRoutingStore->storeItem($entry);
+});
+
+
+
+
+var_dump($incomeRoutingStore);
+
+
+
+
+
+
 exit();
 
 
