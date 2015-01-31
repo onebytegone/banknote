@@ -106,6 +106,21 @@ echo $tableFormatter->buildTableByTimePeriod($sources, array_slice(TimePeriod::a
 
 
 
+// Sum all incomes by month
+$incomeTotals = new TemporalItemStore();
+
+array_walk($incomeStore->allItems(), function ($item) use ($incomeTotals) {
+   $storedTotalEntry = $incomeTotals->anyItemForTimePeriod($item->timePeriod);
+   if (!$storedTotalEntry) {
+      $storedTotalEntry = new AmountEntry();
+      $storedTotalEntry->timePeriod = $item->timePeriod;
+      $incomeTotals->storeItem($storedTotalEntry);
+   }
+
+   $storedTotalEntry->amount += $item->amount;
+});
+
+echo $tableFormatter->buildTableByTimePeriod(array("total income" => $incomeTotals), array_slice(TimePeriod::all_time_periods(), 1), $valueFormatter, $months);
 
 
 
