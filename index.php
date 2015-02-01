@@ -137,7 +137,62 @@ array_walk($incomeRoutingData, function($item) use ($incomeRoutingStore){
    $incomeRoutingStore->storeItem($entry);
 });
 
+// TODO: This is not correct. There needs to be an additional sum
+
 echo $tableFormatter->buildTableByTimePeriod(array("routing" => $incomeRoutingStore), array_slice(TimePeriod::all_time_periods(), 1), $valueFormatter, $months);
+
+
+
+
+// ##########################################
+// Fund changes from routing
+// ##########################################
+$fundRoutingTotals = array_reduce(TimePeriod::all_time_periods(), function($fundTotals, $timePeriod) use ($incomeRoutingStore) {
+   $foundFundTotals = array_reduce($incomeRoutingStore->itemsForTimePeriod($timePeriod), function($carry, $item) use ($timePeriod) {
+      $fund = $item->fund;
+      $store = $carry[$fund];
+
+      if (!$store) {
+         $store = new TemporalItemStore();
+         $carry[$fund] = $store;
+      }
+
+      $entry = $store->anyItemForTimePeriod($timePeriod);
+      if (!$entry) {
+         $entry = new AmountEntry();
+         $entry->timePeriod = $timePeriod;
+         $store->storeItem($entry);
+      }
+
+      $entry->amount += $item->amount;
+
+      return $carry;
+   }, $fundTotals);
+
+   $newFundTotals = array();
+   array_walk(array_keys($fundTotals), function($key) use ($fundTotals, $foundFundTotals, $newFundTotals) {
+      $originalTotal = $fundTotals[$key];
+      $newTotal = $foundFundTotals[$key];
+
+      if ($newTotal) {
+         $combinedTotal = $originalTotal;
+         $combinedTotal->amount += $newTotal->amount;
+
+         $newFundTotals[$key] = $combinedTotal;
+         return;
+      }
+
+      $newFundTotals[$key] = $originalTotal;
+   });
+   $newFundTotals = array_merge($newFundTotals, $foundFundTotals);
+
+   return $newFundTotals;
+}, array());
+
+
+
+echo $tableFormatter->buildTableByTimePeriod($fundRoutingTotals, array_slice(TimePeriod::all_time_periods(), 1), $valueFormatter, $months);
+
 
 
 

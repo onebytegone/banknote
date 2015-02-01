@@ -1,35 +1,35 @@
 [
    {
       "id": "103",
-      "amount": "1.37",
+      "amount": 1.37,
       "date": "5/20",
       "notes": "",
       "source": "misc"
    },
    {
       "id": "104",
-      "amount": "1.37",
+      "amount": 1.37,
       "date": "5/22",
       "notes": "",
       "source": "misc"
    },
    {
       "id": "100",
-      "amount": "4.02",
+      "amount": 4.02,
       "date": "2/1",
       "notes": "",
       "source": "interest"
    },
    {
       "id": "101",
-      "amount": "6.40",
+      "amount": 6.40,
       "date": "5/1",
       "notes": "",
       "source": "interest"
    },
    {
       "id": "102",
-      "amount": "10.08",
+      "amount": 10.08,
       "date": "2/10",
       "notes": "",
       "source": "misc"
