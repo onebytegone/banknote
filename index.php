@@ -6,6 +6,9 @@ require 'code/require.php';
 
 
 
+// ##########################################
+// Fetch Income data
+// ##########################################
 
 $incomeData = json_decode(file_get_contents('test_income.json'), true);
 $incomeStore = new TemporalItemStore();
@@ -26,14 +29,21 @@ usort($incomeItems, function($a, $b) {
 });
 
 
-// Income item list
+
+
+// ##########################################
+// Print income item list
+// ##########################################
+
 $tableFormatter = new ItemStoreTableFormatter();
 echo $tableFormatter->buildListTableOfEntries($incomeItems, new IncomeEntrySummaryFormatter(), array('date', 'source', 'amount'));
 
 
 
 
-// Income summary
+// ##########################################
+// Income summary calculation
+// ##########################################
 
 $incomeSourceData = json_decode(file_get_contents('test_income_sources.json'), true);
 
@@ -55,23 +65,6 @@ $sources = array_reduce($incomeSourceData, function ($carry, $item) {
    return $carry;
 }, array());
 
-/*
-$sources = array_map(function($item) use ($timePeriods) {
-   $sourceStore = new TemporalItemStore();
-
-   array_walk($timePeriods, function($timePeriod) use ($sourceStore, $item){
-      $entry = new AmountEntry();
-      $entry->id = $item['id'];
-      $entry->timePeriod = $timePeriod;
-      $entry->amount = 0;
-      $sourceStore->storeItem($entry);
-   });
-
-   return $sourceStore;
-}, $incomeSourceData);
-
-*/
-
 array_walk($sources, function($sourceStore) use ($incomeStore) {
    array_walk(TimePeriod::all_time_periods(), function($timePeriod) use ($incomeStore, $sourceStore) {
       $incomeItemsForPeriod = $incomeStore->itemsForTimePeriod($timePeriod);
@@ -89,6 +82,11 @@ array_walk($sources, function($sourceStore) use ($incomeStore) {
 
 
 
+
+// ##########################################
+// Print income summary
+// ##########################################
+
 $valueFormatter = new SingleAmountEntryOutputFormatter("$%.2f");
 $months = array_reduce(TimePeriod::all_time_periods(), function($carry, $timePeriod) {
    // Skip 'Initial' time period
@@ -104,9 +102,9 @@ echo $tableFormatter->buildTableByTimePeriod($sources, array_slice(TimePeriod::a
 
 
 
-
-
+// ##########################################
 // Sum all incomes by month
+// ##########################################
 $incomeTotals = new TemporalItemStore();
 
 array_walk($incomeStore->allItems(), function ($item) use ($incomeTotals) {
@@ -125,7 +123,9 @@ echo $tableFormatter->buildTableByTimePeriod(array("total income" => $incomeTota
 
 
 
-
+// ##########################################
+// Income routing totals
+// ##########################################
 $incomeRoutingData = json_decode(file_get_contents('test_income_to_fund_routing.json'), true);
 $incomeRoutingStore = new TemporalItemStore();
 
