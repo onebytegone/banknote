@@ -126,7 +126,6 @@ echo $tableFormatter->buildTableByTimePeriod(array("total income" => $incomeTota
 
 
 
-
 $incomeRoutingData = json_decode(file_get_contents('test_income_to_fund_routing.json'), true);
 $incomeRoutingStore = new TemporalItemStore();
 
@@ -138,10 +137,9 @@ array_walk($incomeRoutingData, function($item) use ($incomeRoutingStore){
    $incomeRoutingStore->storeItem($entry);
 });
 
+echo $tableFormatter->buildTableByTimePeriod(array("routing" => $incomeRoutingStore), array_slice(TimePeriod::all_time_periods(), 1), $valueFormatter, $months);
 
 
-
-var_dump($incomeRoutingStore);
 
 
 
