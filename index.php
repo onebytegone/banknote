@@ -137,9 +137,20 @@ array_walk($incomeRoutingData, function($item) use ($incomeRoutingStore){
    $incomeRoutingStore->storeItem($entry);
 });
 
-// TODO: This is not correct. There needs to be an additional sum
+$routingTotalsStore = new TemporalItemStore();
 
-echo $tableFormatter->buildTableByTimePeriod(array("routing" => $incomeRoutingStore), array_slice(TimePeriod::all_time_periods(), 1), $valueFormatter, $months);
+array_map(function($timePeriod) use ($incomeRoutingStore, $routingTotalsStore) {
+   $entry = new AmountEntry();
+   $entry->timePeriod = $timePeriod;
+
+   $entry->amount = array_reduce($incomeRoutingStore->itemsForTimePeriod($timePeriod), function($carry, $item) use ($timePeriod) {
+      return $carry + $item->amount;
+   }, 0);
+
+   $routingTotalsStore->storeItem($entry);
+}, TimePeriod::all_time_periods());
+
+echo $tableFormatter->buildTableByTimePeriod(array("routing" => $routingTotalsStore), array_slice(TimePeriod::all_time_periods(), 1), $valueFormatter, $months);
 
 
 
