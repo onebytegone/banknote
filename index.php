@@ -207,10 +207,19 @@ echo $tableFormatter->buildTableByTimePeriod($fundRoutingTotals, array_slice(Tim
 
 
 
+// ##########################################
+// Expense list
+// ##########################################
 
+$expenseData = json_decode(file_get_contents('test_expenses.json'), true);
+$expenseStore = new TemporalItemStore();
+$expenseFactory = new ExpenseEntryFactory();
 
+array_walk($expenseData, function($item) use ($expenseStore, $expenseFactory){
+   $expenseStore->storeItem($expenseFactory->buildEntry($item));
+});
 
-
+var_dump($expenseStore);
 
 exit();
 
