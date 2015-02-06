@@ -54,12 +54,13 @@ $sources = array_reduce($incomeSourceData, function ($carry, $item) {
    $sourceStore = new TemporalItemStore();
    $sourceStore->id = $item['id'];
 
-   array_walk(TimePeriod::all_time_periods(), function($timePeriod) use ($sourceStore){
+   $entries = array_map(function($timePeriod) {
       $entry = new AmountEntry();
       $entry->timePeriod = $timePeriod;
       $entry->amount = 0;
-      $sourceStore->storeItem($entry);
-   });
+      return $entry;
+   }, TimePeriod::all_time_periods());
+   $sourceStore->storeItems($entries);
 
    $carry[$item['name']] = $sourceStore;
    return $carry;

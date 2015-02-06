@@ -24,6 +24,15 @@ class TemporalItemStore {
     }
 
     /**
+     * Stores the items in the array.
+     *
+     * @param $newItems array - array of items to store
+     */
+    public function storeItems($newItems) {
+        array_merge($this->items, $newItems);
+    }
+
+    /**
      * Stores the given item.
      *
      * @param $item object - item to store
