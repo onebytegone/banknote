@@ -1,4 +1,11 @@
 <?php
 
-// Set timezone
+/**
+ * This enables/disables debug mode
+ */
+define('IS_DEBUG', true);
+
+/**
+ * Set timezone
+ */
 date_default_timezone_set("America/New_York");
