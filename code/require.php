@@ -17,3 +17,4 @@ require 'formatter/ItemStoreTableFormatter.php';
 require 'formatter/entry/EntryFormatOutput.php';
 require 'formatter/entry/SingleAmountEntryOutputFormatter.php';
 require 'formatter/entry/IncomeEntrySummaryFormatter.php';
+require 'formatter/entry/ExpenseEntrySummaryFormatter.php';

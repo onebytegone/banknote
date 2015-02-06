@@ -219,7 +219,32 @@ array_walk($expenseData, function($item) use ($expenseStore, $expenseFactory){
    $expenseStore->storeItem($expenseFactory->buildEntry($item));
 });
 
-var_dump($expenseStore);
+$expenseItems = $expenseStore->allItems();
+
+// Sort income items by date
+usort($expenseItems, function($a, $b) {
+   if ($a->date == $b->date) {
+      return 0;
+   }
+   return (strtotime($a->date) < strtotime($b->date)) ? -1 : 1;
+});
+
+
+
+
+// ##########################################
+// Print expense item list
+// ##########################################
+
+echo $tableFormatter->buildListTableOfEntries($expenseItems, new ExpenseEntrySummaryFormatter(), array('date', 'item', 'amount'));
+
+
+
+
+
+
+
+
 
 exit();
 
