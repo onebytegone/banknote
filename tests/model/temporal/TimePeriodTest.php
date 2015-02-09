@@ -5,6 +5,17 @@
  */
 class TimePeriodTest extends PHPUnit_Framework_TestCase {
 
+   public function testFindByIDInArray() {
+      $item = new TimePeriod();
+      $item->id = "myid";
+      $item2 = new TimePeriod();
+      $item2->id = "randid";
+
+      $items = array($item, $item2);
+      $this->assertEquals($item, TimePeriod::findTimePeriodWithID($items, "myid"));
+      $this->assertEquals($item2, TimePeriod::findTimePeriodWithID($items, "randid"));
+      $this->assertNull(TimePeriod::findTimePeriodWithID($items, "notfound"));
+   }
 
    public function testCompareTo() {
       $janPeriod = new TimePeriod();
