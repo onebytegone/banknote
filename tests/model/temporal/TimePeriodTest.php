@@ -87,12 +87,13 @@ class TimePeriodTest extends PHPUnit_Framework_TestCase {
       $item2->endDate = "5/1";
 
       $items = array($item, $item2);
-      $this->assertEquals($item, TimePeriod::findTimePeriodByMonthAndDay("12/20"));
-      $this->assertEquals($item2, TimePeriod::findTimePeriodByMonthAndDay("1/2"));
-      $this->assertEquals($item2, TimePeriod::findTimePeriodByMonthAndDay("1/1"));
-      $this->assertEquals($item2, TimePeriod::findTimePeriodByMonthAndDay("5/1"));
-      $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay("6/2"));
-
+      $this->assertEquals($item, TimePeriod::findTimePeriodByMonthAndDay($items, "12/20"));
+      $this->assertEquals($item2, TimePeriod::findTimePeriodByMonthAndDay($items, "1/2"));
+      $this->assertEquals($item2, TimePeriod::findTimePeriodByMonthAndDay($items, "1/1"));
+      $this->assertEquals($item2, TimePeriod::findTimePeriodByMonthAndDay($items, "5/1"));
+      $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "5/2"));
+      $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "12/11"));
+      $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "6/2"));
    }
 }
 

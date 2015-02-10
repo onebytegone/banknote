@@ -79,7 +79,7 @@ class TimePeriod {
 
     static public function findTimePeriodByMonthAndDay($timePeriods, $date) {
         $foundItems = array_filter($timePeriods, function ($item) use ($date) {
-            return strtotime($item->startDate) <= strtotime($date) && strtotime($item->endDate) > strtotime($date);
+            return strtotime($item->startDate) <= strtotime($date) && strtotime($item->endDate) >= strtotime($date);
         });
 
         return array_shift($foundItems);
