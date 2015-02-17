@@ -73,16 +73,27 @@ class AmountCalculate {
          };
 
          // Generate sum of entries
-         $summedEntry = array_reduce($items, function ($totalEntry, $entry) {
-            $totalEntry->amount += $entry->amount;
-            return $totalEntry;
-         }, new AmountEntry());
+         $summedEntry = new AmountEntry();
+         $summedEntry->amount = $this->totalAmountForEntries($items);
          $summedEntry->timePeriod = $timePeriod;
 
          // Save sum
          $store->storeItem($summedEntry);
          return $store;
       }, new TemporalItemStore());
+   }
+
+   /**
+    * For the given AmountEntrys, add together the value of their
+    * amounts. Returns the total amount of the entries.
+    *
+    * @param $entries array - Array of AmountEntry objects
+    * @return float
+    */
+   public function totalAmountForEntries($entries) {
+      return array_reduce($entries, function ($total, $entry) {
+         return $total + $entry->amount;
+      }, 0);
    }
 
 }
