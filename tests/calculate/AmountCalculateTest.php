@@ -5,6 +5,31 @@
  */
 class AmountCalculateTest extends PHPUnit_Framework_TestCase {
 
+   public function testDifferenceOfEntriesByTimePeriod() {
+      $sourceA = new TemporalItemStore(array(
+         $this->makeAmountEntry(4, 1),
+         $this->makeAmountEntry(2, 3),
+         $this->makeAmountEntry(9, 5),
+      ));
+
+      $sourceB = new TemporalItemStore(array(
+         $this->makeAmountEntry(2, 1),
+         $this->makeAmountEntry(0.5, 3),
+         $this->makeAmountEntry(4, 7),
+      ));
+
+      $target = new TemporalItemStore(array(
+         $this->makeAmountEntry(2, 1),
+         $this->makeAmountEntry(1.5, 3),
+         $this->makeAmountEntry(9, 5),
+         $this->makeAmountEntry(-4, 7)
+      ));
+
+      $calculate = new AmountCalculate();
+
+      $this->assertEquals($target, $calculate->differenceOfEntriesByTimePeriod($sourceA, $sourceB, TimePeriod::all_time_periods()));
+   }
+
    public function testSumEntriesByTimePeriod() {
       $sourceA = new TemporalItemStore(array(
          $this->makeAmountEntry(4, 1),

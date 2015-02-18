@@ -9,6 +9,37 @@
 class AmountCalculate {
 
    /**
+    * For each TimePeriod in $timePeriods, Subtract the values of the entries of
+    * the second from first and put the value into a new AmountEntry. Store that
+    * new entry into the store that will be returned.
+    *
+    * @param $itemStoreA TemporalItemStore
+    * @param $itemStoreB TemporalItemStore
+    * @param $timePeriods Array of TimePeriods
+    * @return array
+    */
+   public function differenceOfEntriesByTimePeriod($itemStoreA, $itemStoreB, $timePeriods) {
+      return array_reduce($timePeriods, function($store, $timePeriod) use ($itemStoreA, $itemStoreB) {
+         $minuend = $itemStoreA->anyItemForTimePeriod($timePeriod);
+         $subtrahend = $itemStoreB->anyItemForTimePeriod($timePeriod);
+
+         // If neither exist, don't bother trying to create an entry for the time period
+         if (!$minuend && !$subtrahend) {
+            return $store;
+         }
+
+         // Generate sum of entries
+         $summedEntry = new AmountEntry();
+         $summedEntry->amount = $this->differenceOfEntries($minuend, $subtrahend);
+         $summedEntry->timePeriod = $timePeriod;
+
+         // Save sum
+         $store->storeItem($summedEntry);
+         return $store;
+      }, new TemporalItemStore());
+   }
+
+   /**
     * Sums the contents of two TemporalItemStores based on TimePeriod. Returns
     * a new TemporalItemStore with the results.
     *
@@ -94,5 +125,19 @@ class AmountCalculate {
       return array_reduce($entries, function ($total, $entry) {
          return $total + $entry->amount;
       }, 0);
+   }
+
+   /**
+    * Returns the amount difference between two AmountEntrys.
+    *
+    * @param $entryA AmountEntry
+    * @param $entryB AmountEntry
+    * @return float
+    */
+   public function differenceOfEntries($entryA, $entryB) {
+      $a = $entryA ? $entryA->amount : 0;
+      $b = $entryB ? $entryB->amount : 0;
+
+      return $a - $b;
    }
 }
