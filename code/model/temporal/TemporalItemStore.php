@@ -75,4 +75,23 @@ class TemporalItemStore {
             return $a->timePeriod->compareTo($b->timePeriod);
         });
     }
+
+    /**
+     * Creates an array of all the items in the TemporalItemStores
+     * for a given TimePeriod
+     *
+     * @param $stores array - Array of TemporalItemStores
+     * @param $timePeriod TimePeriod
+     * @return array
+     */
+    static public function all_items_by_time_period($stores, $timePeriod) {
+        // Make sure we always use an array
+        if (!is_array($stores)) {
+            $stores = array($stores);
+        }
+
+        return array_reduce($stores, function ($carry, $store) use ($timePeriod) {
+            return array_merge($carry, $store->itemsForTimePeriod($timePeriod));
+        }, array());
+    }
 }

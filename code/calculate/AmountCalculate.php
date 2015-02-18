@@ -59,13 +59,13 @@ class AmountCalculate {
     * together into a new AmountEntry. Store that new entry into the store that
     * will be returned.
     *
-    * @param $originalItemStore TemporalItemStore - Source for values
+    * @param $itemStores TemporalItemStore or array - Source for values
     * @param $timePeriods Array of TimePeriods
     * @return array
     */
-   public function sumEntriesByTimePeriod($originalItemStore, $timePeriods) {
-      return array_reduce($timePeriods, function($store, $timePeriod) use ($originalItemStore) {
-         $items = $originalItemStore->itemsForTimePeriod($timePeriod);
+   public function sumEntriesByTimePeriod($itemStores, $timePeriods) {
+      return array_reduce($timePeriods, function($store, $timePeriod) use ($itemStores) {
+         $items = TemporalItemStore::all_items_by_time_period($itemStores, $timePeriod);
 
          // If no items, don't bother trying to create an entry for the time period
          if (count($items) == 0) {
@@ -95,5 +95,4 @@ class AmountCalculate {
          return $total + $entry->amount;
       }, 0);
    }
-
 }

@@ -6,24 +6,38 @@
 class AmountCalculateTest extends PHPUnit_Framework_TestCase {
 
    public function testSumEntriesByTimePeriod() {
-      $entries = array(
+      $sourceA = new TemporalItemStore(array(
          $this->makeAmountEntry(4, 1),
          $this->makeAmountEntry(7, 1),
          $this->makeAmountEntry(2, 3),
          $this->makeAmountEntry(9, 4),
-      );
-      $source = new TemporalItemStore($entries);
+      ));
 
-      $total = array(
+      $sourceB = new TemporalItemStore(array(
+         $this->makeAmountEntry(2, 1),
+         $this->makeAmountEntry(5, 1),
+         $this->makeAmountEntry(1, 3),
+         $this->makeAmountEntry(1, 4),
+         $this->makeAmountEntry(4, 7),
+      ));
+
+      $targetSingle = new TemporalItemStore(array(
          $this->makeAmountEntry(11, 1),
          $this->makeAmountEntry(2, 3),
          $this->makeAmountEntry(9, 4)
-      );
-      $target = new TemporalItemStore($total);
+      ));
+
+      $targetMultiple = new TemporalItemStore(array(
+         $this->makeAmountEntry(18, 1),
+         $this->makeAmountEntry(3, 3),
+         $this->makeAmountEntry(10, 4),
+         $this->makeAmountEntry(4, 7)
+      ));
 
       $calculate = new AmountCalculate();
 
-      $this->assertEquals($target, $calculate->sumEntriesByTimePeriod($source, TimePeriod::all_time_periods()));
+      $this->assertEquals($targetSingle, $calculate->sumEntriesByTimePeriod($sourceA, TimePeriod::all_time_periods()));
+      $this->assertEquals($targetMultiple, $calculate->sumEntriesByTimePeriod(array($sourceA, $sourceB), TimePeriod::all_time_periods()));
    }
 
    public function testTotalAmountForEntries() {
