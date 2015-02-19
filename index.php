@@ -4,6 +4,12 @@ require 'environment.php';
 require 'code/require.php';
 
 
+$mcp = new MasterConfigParser("config/master-config.json");
+
+
+
+exit();
+
 
 
 // ##########################################

@@ -1,0 +1,57 @@
+{
+   "input-fields": [
+      "income_entries",
+      "income_to_fund",
+      "fund_initial",
+      "expense_entries",
+      "fund_draw",
+      "route_to_account",
+      "account_draw",
+      "account_actual"
+   ],
+   "ui-fields": [
+      {
+         "name": "Income",
+         "type": "list",
+         "object": "income_entries",
+         "fields": {
+            "date": "Date",
+            "source": "Source",
+            "amount": "Amount"
+         }
+      },
+      {
+         "name": "Income Total",
+         "type": "outputTable",
+         "object": "sto_income_total",
+         "hasYearTotals": true
+      }
+   ],
+   "flow": [
+      {
+         "source": "income_entries",
+         "action": "SUM_BY_PERIOD",
+         "output": "sto_income_total"
+      },
+      {
+         "source": "income_to_fund",
+         "action": "SUM_BY_CATEGORY",
+         "_categoryField": "source",
+         "output": "arr_income_per_fund"
+      },
+      {
+         "source": "arr_income_per_fund",
+         "action": "SUM_BY_PERIOD",
+         "output": "sto_assigned_income"
+      },
+      {
+         "source": "sto_income_total",
+         "action": "DIFFERENCE_BY_PERIOD",
+         "_additionalSource": "sto_assigned_income",
+         "output": "sto_unassigned_income"
+      }
+   ],
+   "validation": [
+
+   ]
+}
