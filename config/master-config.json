@@ -49,6 +49,18 @@
          "action": "DIFFERENCE_BY_PERIOD",
          "_additionalSource": "sto_assigned_income",
          "output": "sto_unassigned_income"
+      },
+
+      {
+         "source": "expense_entries",
+         "action": "SUM_BY_PERIOD",
+         "output": "sto_expense_total"
+      },
+      {
+         "source": "expense_entries",
+         "action": "DIFFERENCE_BY_PERIOD",
+         "_additionalSource": "fund_draw",
+         "output": "sto_unassigned_expenses"
       }
    ],
    "validation": [
