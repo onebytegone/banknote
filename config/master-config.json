@@ -52,6 +52,9 @@
       }
    ],
    "validation": [
-
+      {
+         "field": "sto_unassigned_income",
+         "check": "SHOULD_ZERO"
+      }
    ]
 }
