@@ -5,7 +5,9 @@ require 'code/require.php';
 
 
 $mcp = new MasterConfigParser("config/master-config.json");
+$uiFieldConfig = $mcp->configForUIFields();
 
+var_dump($uiFieldConfig);
 
 
 exit();
