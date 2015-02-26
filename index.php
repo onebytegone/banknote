@@ -10,6 +10,16 @@ $uiFieldConfig = $mcp->configForUIFields();
 var_dump($uiFieldConfig);
 
 
+
+$controlMap = array(
+   'SUM_BY_CATEGORY' => null,
+   'SUM_BY_PERIOD' => function($input, $config) {
+      $calculator = new AmountCalculate();
+      return $calculator->sumEntriesByTimePeriod($input[$config['source']], TimePeriod::all_time_periods());
+   },
+   'DIFFERENCE_BY_PERIOD' => null
+);
+
 exit();
 
 
