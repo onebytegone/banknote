@@ -19,3 +19,6 @@ require 'formatter/entry/EntryFormatOutput.php';
 require 'formatter/entry/SingleAmountEntryOutputFormatter.php';
 require 'formatter/entry/IncomeEntrySummaryFormatter.php';
 require 'formatter/entry/ExpenseEntrySummaryFormatter.php';
+require 'steps/CalculationStep.php';
+require 'steps/TotalForPeriod.php';
+require 'steps/DifferenceOfStores.php';
