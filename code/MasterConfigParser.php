@@ -22,7 +22,11 @@ class MasterConfigParser {
    }
 
    public function configForUIFields() {
-      return $this->configData['ui-fields'];
+      return $this->fetchConfig('ui-fields');
+   }
+
+   public function fetchConfig($configField) {
+      return $this->configData[$configField];
    }
 
 }

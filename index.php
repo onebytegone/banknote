@@ -6,8 +6,11 @@ require 'code/require.php';
 
 $mcp = new MasterConfigParser("config/master-config.json");
 $uiFieldConfig = $mcp->configForUIFields();
+$dataFlowConfig = $mcp->fetchConfig('flow');
 
-var_dump($uiFieldConfig);
+var_dump($dataFlowConfig);
+
+
 
 
 
