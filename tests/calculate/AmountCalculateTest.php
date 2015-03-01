@@ -65,6 +65,25 @@ class AmountCalculateTest extends PHPUnit_Framework_TestCase {
       $this->assertEquals($targetMultiple, $calculate->sumEntriesByTimePeriod(array($sourceA, $sourceB), TimePeriod::all_time_periods()));
    }
 
+   public function testSumEntriesByCategory() {
+      $entries = new TemporalItemStore(array(
+         $this->makeAmountEntry(4, 1, 'dog'),
+         $this->makeAmountEntry(7, 1, 'cow'),
+         $this->makeAmountEntry(2, 3, 'dog'),
+         $this->makeAmountEntry(2, 3, 'dog'),
+      ));
+
+      $target = new TemporalItemStore(array(
+         $this->makeAmountEntry(4, 1, 'dog'),
+         $this->makeAmountEntry(7, 1, 'cow'),
+         $this->makeAmountEntry(4, 3, 'dog'),
+      ));
+
+      $calculate = new AmountCalculate();
+
+      $this->assertEquals($target, $calculate->sumEntriesByCategory($entries, 'source', TimePeriod::all_time_periods()));
+   }
+
    public function testTotalAmountForEntries() {
       $entries = array(
          $this->makeAmountEntry(4, 1),
@@ -79,9 +98,31 @@ class AmountCalculateTest extends PHPUnit_Framework_TestCase {
       $this->assertEquals(22, $calculate->totalAmountForEntries($entries));
    }
 
-   private function makeAmountEntry($value, $timePeriodIndex) {
+   public function testTotalByCategoriesForEntries() {
+      $entries = array(
+         $this->makeAmountEntry(4, 1, 'dog'),
+         $this->makeAmountEntry(7, 1, 'cow'),
+         $this->makeAmountEntry(2, 3, 'fish'),
+         $this->makeAmountEntry(2, 3, 'dog'),
+      );
+
+      $target = array(
+         'dog' => 6,
+         'cow' => 7,
+         'fish' => 2
+      );
+
+      $calculate = new AmountCalculate();
+
+      $this->assertEquals($target, $calculate->totalByCategoriesForEntries($entries, 'source'));
+   }
+
+   private function makeAmountEntry($value, $timePeriodIndex, $category = null) {
       $entry = new AmountEntry();
       $entry->amount = $value;
+      if ($category) {
+         $entry->source = $category;
+      }
       $entry->timePeriod = TimePeriod::all_time_periods()[$timePeriodIndex];
       return $entry;
    }

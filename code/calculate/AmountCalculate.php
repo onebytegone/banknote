@@ -115,6 +115,34 @@ class AmountCalculate {
    }
 
    /**
+    *
+    * @param $itemStore TemporalItemStore - Source for values
+    * @param $categoryField string - Name of the property on AmountEntry
+    *                                that the category is stored in
+    * @param $timePeriods Array of TimePeriods
+    * @return array
+    */
+   public function sumEntriesByCategory($itemStore, $categoryField, $timePeriods) {
+      return array_reduce($timePeriods, function($store, $timePeriod) use ($itemStore, $categoryField) {
+         $allItems = TemporalItemStore::all_items_by_time_period($itemStore, $timePeriod);
+         $categoryTotals = $this->totalByCategoriesForEntries($allItems, $categoryField);
+
+         $categoryTotalEntries = array_map(function ($name) use ($categoryTotals, $timePeriod, $categoryField) {
+            // Generate entry for category
+            $entry = new AmountEntry();
+            $entry->amount = $categoryTotals[$name];
+            $entry->timePeriod = $timePeriod;
+            $entry->$categoryField = $name;
+            return $entry;
+         }, array_keys($categoryTotals));
+
+         // Save totals
+         $store->storeItems($categoryTotalEntries);
+         return $store;
+      }, new TemporalItemStore());
+   }
+
+   /**
     * For the given AmountEntrys, add together the value of their
     * amounts. Returns the total amount of the entries.
     *
@@ -125,6 +153,25 @@ class AmountCalculate {
       return array_reduce($entries, function ($total, $entry) {
          return $total + $entry->amount;
       }, 0);
+   }
+
+   /**
+    * For the given AmountEntrys, add together the value of each
+    * of the categories for the specified field. Returns the total
+    * amount of the entries.
+    *
+    * @param $entries array - Array of AmountEntry objects
+    * @param $categoryField string - name of the property on the
+    *                                AmountEntry objects which stores
+    *                                the category name.
+    * @return array
+    */
+   public function totalByCategoriesForEntries($entries, $categoryField) {
+      return array_reduce($entries, function ($totals, $entry) use ($categoryField) {
+         $fieldValue = $entry->$categoryField;
+         $totals[$fieldValue] = ( isset($totals[$fieldValue]) ? $totals[$fieldValue] : 0 ) + $entry->amount;
+         return $totals;
+      }, array());
    }
 
    /**
