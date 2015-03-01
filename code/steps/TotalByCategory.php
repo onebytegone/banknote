@@ -25,7 +25,7 @@ class TotalByCategory extends CalculationStep {
     * @param $package array - data package to process
     * @return array - modified package
     */
-   private function calculationTask($package) {
+   protected function calculationTask($package) {
       $input = $package[$this->source];
       $total = $this->amountCalculate->sumEntriesByCategory(
          $input,

@@ -37,7 +37,7 @@ class CalculationStep {
     * @param $package array - data package to process
     * @return array - modified package
     */
-   private function calculationTask($package) {
+   protected function calculationTask($package) {
       return self::duplicate_field($package[$this->output], $this->source, $this->output);
    }
 
