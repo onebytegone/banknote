@@ -13,7 +13,11 @@ class TemporalItemStoreTest extends PHPUnit_Framework_TestCase {
       $store = new TemporalItemStore(array($itemA));
       $store->storeItem($itemB);
 
+      $storeAll = new TemporalItemStore();
+      $storeAll->storeItems($items);
+
       $this->assertEquals($items, $store->allItems());
+      $this->assertEquals($items, $storeAll->allItems());
    }
 
    public function testFindByID() {

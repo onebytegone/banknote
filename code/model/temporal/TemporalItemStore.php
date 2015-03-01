@@ -29,7 +29,7 @@ class TemporalItemStore {
      * @param $newItems array - array of items to store
      */
     public function storeItems($newItems) {
-        array_merge($this->items, $newItems);
+        $this->items = array_merge($this->items, $newItems);
     }
 
     /**
