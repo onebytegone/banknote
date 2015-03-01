@@ -9,13 +9,13 @@
  */
 
 class CalculationStep {
-   public $sourceField = null;  // string
-   public $outputField = null;  // string
+   public $source = null;  // string
+   public $output = null;  // string
 
    /**
     * Handles the calculation for the step. Takes the
-    * contents from the $this->sourceField and puts them
-    * in the $this->outputField of the package.
+    * contents from the $this->source and puts them
+    * in the $this->output of the package.
     *
     * NOTE: This function should not be overridden by
     *       subclasses. Override calculationTask instead.
@@ -38,7 +38,7 @@ class CalculationStep {
     * @return array - modified package
     */
    private function calculationTask($package) {
-      return self::duplicate_field($package[$this->outputField], $this->sourceField, $this->outputField);
+      return self::duplicate_field($package[$this->output], $this->source, $this->output);
    }
 
 

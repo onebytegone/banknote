@@ -8,7 +8,7 @@
  */
 
 class DifferenceOfStores extends CalculationStep {
-   public $subtrahendField = null;  // string
+   public $subtrahend = null;  // string
 
    private $amountCalculate;
 
@@ -26,12 +26,12 @@ class DifferenceOfStores extends CalculationStep {
     * @return array - modified package
     */
    private function calculationTask($package) {
-      $input = $package[$this->sourceField];
-      $subtrahend = $package[$this->subtrahendField];
+      $input = $package[$this->source];
+      $subtrahendValue = $package[$this->subtrahend];
 
-      $total = $this->amountCalculate->differenceOfEntriesByTimePeriod($input, $subtrahend, TimePeriod::all_time_periods());
+      $total = $this->amountCalculate->differenceOfEntriesByTimePeriod($input, $subtrahendValue, TimePeriod::all_time_periods());
 
-      $package[$this->outputField] = $total;
+      $package[$this->output] = $total;
 
       return $package;
    }

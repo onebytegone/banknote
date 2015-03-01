@@ -24,9 +24,9 @@ class TotalForPeriod extends CalculationStep {
     * @return array - modified package
     */
    private function calculationTask($package) {
-      $input = $package[$this->sourceField];
+      $input = $package[$this->source];
       $total = $this->amountCalculate->sumEntriesByTimePeriod($input, TimePeriod::all_time_periods());
-      $package[$this->outputField] = $total;
+      $package[$this->output] = $total;
 
       return $package;
    }

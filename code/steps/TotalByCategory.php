@@ -8,7 +8,7 @@
  */
 
 class TotalByCategory extends CalculationStep {
-   public $categoryProperty = null;  // string
+   public $category = null;  // string
 
    private $amountCalculate;
 
@@ -26,13 +26,13 @@ class TotalByCategory extends CalculationStep {
     * @return array - modified package
     */
    private function calculationTask($package) {
-      $input = $package[$this->sourceField];
+      $input = $package[$this->source];
       $total = $this->amountCalculate->sumEntriesByCategory(
          $input,
-         $this->categoryProperty,
+         $this->category,
          TimePeriod::all_time_periods()
       );
-      $package[$this->outputField] = $total;
+      $package[$this->output] = $total;
 
       return $package;
    }
