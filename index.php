@@ -3,28 +3,44 @@
 require 'environment.php';
 require 'code/require.php';
 
-
-$mcp = new MasterConfigParser("config/master-config.json");
-$uiFieldConfig = $mcp->configForUIFields();
-$dataFlowConfig = $mcp->fetchConfig('flow');
-
-var_dump($dataFlowConfig);
-
+// NOTE: temp data. should be paresed from user data source
+$incomeEntries = new TemporalItemStore();
+$incomeToFund = new TemporalItemStore();
+$expenseEntries = new TemporalItemStore();
+$fundDraw = new TemporalItemStore();
 
 
 
-
-$controlMap = array(
-   'SUM_BY_CATEGORY' => null,
-   'SUM_BY_PERIOD' => function($input, $config) {
-      $calculator = new AmountCalculate();
-      return $calculator->sumEntriesByTimePeriod($input[$config['source']], TimePeriod::all_time_periods());
-   },
-   'DIFFERENCE_BY_PERIOD' => null
+// Package setup
+$initialPackage = array(
+   'sto_usr_income_entries' => $incomeEntries,
+   'sto_usr_income_to_fund' => $incomeToFund,
+   'sto_usr_expense_entries' => $expenseEntries,
+   'sto_usr_fund_draw' => $fundDraw,
 );
+
+// Setup data steps
+$stepConfig = json_decode(file_get_contents('config/data-steps.json'), true);
+$stepFactory = new CalculationStepFactory();
+$steps = $stepFactory->generateStepList($stepConfig);
+
+
+// Run calculations
+$finalPackage = array_reduce($steps, function ($package, $step) {
+   $package = $step->calculate($package);
+   return $package;
+}, $initialPackage);
+
+var_dump($finalPackage);
+
+
+
+
 
 exit();
 
+$mcp = new MasterConfigParser("config/master-config.json");
+$uiFieldConfig = $mcp->configForUIFields();
 
 
 // ##########################################
