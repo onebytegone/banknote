@@ -2,14 +2,14 @@
    {
       "type": "TotalForPeriod",
       "fields": {
-         "source": "income_entries",
+         "source": "sto_usr_income_entries",
          "output": "sto_income_total"
       }
    },
    {
       "type": "TotalByCategory",
       "fields": {
-         "source": "income_to_fund",
+         "source": "sto_usr_income_to_fund",
          "category": "source",
          "output": "arr_income_per_fund"
       }
@@ -25,7 +25,7 @@
       "type": "DifferenceOfStores",
       "fields": {
          "source": "sto_income_total",
-         "subtrahendValue": "sto_assigned_income",
+         "subtrahend": "sto_assigned_income",
          "output": "sto_unassigned_income"
       }
    },
@@ -33,7 +33,7 @@
    {
       "type": "TotalForPeriod",
       "fields": {
-         "source": "expense_entries",
+         "source": "sto_usr_expense_entries",
          "output": "sto_expense_total"
       }
    },
@@ -41,6 +41,7 @@
       "type": "DifferenceOfStores",
       "fields": {
          "source": "sto_expense_total",
+         "subtrahend": "sto_usr_fund_draw",
          "output": "sto_unassigned_expenses"
       }
    }
