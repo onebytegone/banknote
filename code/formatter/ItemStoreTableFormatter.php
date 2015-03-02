@@ -39,12 +39,13 @@ class ItemStoreTableFormatter {
       }
 
       $self = $this;
-      array_walk(array_keys($itemStores), function ($name) use ($self, $table, $fieldFormatter, $timePeriods, $itemStores, $showsRowLabel) {
+      $table = array_reduce(array_keys($itemStores), function ($table, $name) use ($self, $fieldFormatter, $timePeriods, $itemStores, $showsRowLabel) {
          $items = $itemStores[$name]->generateValueSummary($fieldFormatter, $timePeriods);
 
          $self->addLabelToItems($items, $showsRowLabel, $name);
          $table->addRow($items);
-      });
+         return $table;
+      }, $table);
 
       return $table->exportTableAsHTML();
    }
