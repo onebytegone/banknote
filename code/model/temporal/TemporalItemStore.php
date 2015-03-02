@@ -64,7 +64,10 @@ class TemporalItemStore {
         $self = $this;
         $summary = array_reduce($timePeriods, function($carry, $timePeriod) use ($self, $formatter) {
             $entries = $self->itemsForTimePeriod($timePeriod);
-            $carry[] = $formatter->formatListOfObjects($entries);
+
+            if ($entries && count($entries) > 0) {
+                $carry[] = $formatter->formatListOfObjects($entries);
+            }
 
             return $carry;
         }, array());
