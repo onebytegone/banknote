@@ -89,8 +89,19 @@ class TimePeriod {
         return self::findTimePeriodByMonthAndDay(self::all_time_periods(), $date);
     }
 
-    static public function month_names() {
-        return array_reduce(self::all_time_periods(), function($carry, $timePeriod) {
+
+    /**
+     * Builds an array of the the names of the given TimePeriods
+     *
+     * @param $timePeriods array - list of TimePeriods
+     * @return array(string, ...)
+     */
+    static public function fetch_names($timePeriods = null) {
+        if (!$timePeriods) {
+            $timePeriods = self::all_time_periods();
+        }
+
+        return array_reduce($timePeriods, function($carry, $timePeriod) {
             // Skip 'Initial' time period
             if ($timePeriod->LastPeriod() == null) {
                 return $carry;

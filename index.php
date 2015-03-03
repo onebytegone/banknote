@@ -47,7 +47,7 @@ echo $tableFormatter->buildTableByTimePeriod(
    array($incomeTotalStore),
    array_slice(TimePeriod::all_time_periods(), 1),
    new SingleAmountEntryOutputFormatter("$%.2f"),
-   TimePeriod::month_names()
+   TimePeriod::fetch_names()
 );
 
 
