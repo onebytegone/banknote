@@ -11,6 +11,7 @@ require 'model/elements/TableElement.php';
 require 'calculate/IncomeCalculate.php';
 require 'calculate/AmountCalculate.php';
 require 'formatter/ItemStoreTableFormatter.php';
+require 'formatter/ItemStoreGeneralFormatter.php';
 require 'formatter/entry/EntryFormatOutput.php';
 require 'formatter/entry/SingleAmountEntryOutputFormatter.php';
 require 'formatter/entry/IncomeEntrySummaryFormatter.php';
