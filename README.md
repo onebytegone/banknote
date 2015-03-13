@@ -1,8 +1,9 @@
 # banknote
 
 
-Banknote is a simple personal finance tracking website.
+Banknote is a simple personal finance tracking website. The data processing is based on a transactional processing model.
 
+Things are still in development for this.
 
 
 ## Setup
