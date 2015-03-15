@@ -76,6 +76,9 @@ class TimePeriodTest extends PHPUnit_Framework_TestCase {
       $this->assertTrue(TimePeriod::areEquivalent($janPeriod, $janDiffPeriod));
       $this->assertFalse(TimePeriod::areEquivalent($janPeriod, $idDiffPeriod));
       $this->assertFalse(TimePeriod::areEquivalent($janPeriod, $febPeriod));
+      $this->assertFalse(TimePeriod::areEquivalent($janPeriod, null));
+      $this->assertFalse(TimePeriod::areEquivalent(null, $janPeriod));
+      $this->assertFalse(TimePeriod::areEquivalent(null, null));
    }
 
    public function testFindTimePeriodByMonthAndDay() {

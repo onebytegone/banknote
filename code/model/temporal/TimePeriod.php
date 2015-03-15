@@ -27,6 +27,8 @@ class TimePeriod {
 
     static public function areEquivalent($a, $b) {
         return
+            $a &&
+            $b &&
             $a->id == $b->id &&
             $a->startDate == $b->startDate &&
             $a->endDate == $b->endDate;
