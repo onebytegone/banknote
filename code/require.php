@@ -12,6 +12,7 @@ require 'calculate/IncomeCalculate.php';
 require 'calculate/AmountCalculate.php';
 require 'formatter/ItemStoreTableFormatter.php';
 require 'formatter/ItemStoreGeneralFormatter.php';
+require 'formatter/store/ItemStoreArrayMap.php';
 require 'formatter/entry/EntryFormatOutput.php';
 require 'formatter/entry/SingleAmountEntryOutputFormatter.php';
 require 'formatter/entry/IncomeEntrySummaryFormatter.php';
