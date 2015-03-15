@@ -10,120 +10,111 @@
  */
 
 class TimePeriod {
-    public $id = '';
-    public $name = '';
-    public $startDate = '';
-    public $endDate = '';
-    private $lastPeriod = null;
-    public static $time_periods = null;
+   public $id = '';
+   public $name = '';
+   public $startDate = '';
+   public $endDate = '';
+   private $lastPeriod = null;
+   public static $time_periods = null;
 
-    function __construct($lastPeriod = null) {
-    	$this->lastPeriod = $lastPeriod;
-    }
+   function __construct($lastPeriod = null) {
+      $this->lastPeriod = $lastPeriod;
+   }
 
-    public function LastPeriod() {
-    	return $this->lastPeriod;
-    }
+   public function LastPeriod() {
+      return $this->lastPeriod;
+   }
 
-    static public function areEquivalent($a, $b) {
-        return
-            $a &&
-            $b &&
-            $a->id == $b->id &&
-            $a->startDate == $b->startDate &&
-            $a->endDate == $b->endDate;
-    }
+   static public function areEquivalent($a, $b) {
+      return
+         $a &&
+         $b &&
+         $a->id == $b->id &&
+         $a->startDate == $b->startDate &&
+         $a->endDate == $b->endDate;
+   }
 
-    public function compareTo($otherItem) {
-        if ($this->startDate == $otherItem->startDate) {
-            return 0;
-        }
+   public function compareTo($otherItem) {
+      if ($this->startDate == $otherItem->startDate) {
+         return 0;
+      }
 
-        return (strtotime($this->startDate) < strtotime($otherItem->startDate)) ? -1 : 1;
-    }
+      return (strtotime($this->startDate) < strtotime($otherItem->startDate)) ? -1 : 1;
+   }
 
-    static public function all_time_periods($forceLoad = false) {
-        if (self::$time_periods && !$forceLoad) {
-            return self::$time_periods;
-        }
+   static public function all_time_periods($forceLoad = false) {
+      if (self::$time_periods && !$forceLoad) {
+         return self::$time_periods;
+      }
 
-        $rawData = file_get_contents(rtrim(__DIR__, '/').'/../../../data/time-periods.json');
+      $rawData = file_get_contents(rtrim(__DIR__, '/').'/../../../data/time-periods.json');
+      $jsonData = json_decode($rawData);
+      $periods = array();
+      foreach ($jsonData as $item) {
+         $last = null;
+         if ($item->prevID) {
+            $last = self::findTimePeriodWithID($periods, $item->prevID);
+         }
+         $period = new TimePeriod($last);
+         $period->id = $item->id;
+         $period->name = $item->name;
+         $period->startDate = $item->start;
+         $period->endDate = $item->end;
+         $periods[] = $period;
+      }
+      return $periods;
+   }
 
-        $jsonData = json_decode($rawData);
+   static public function findTimePeriodWithID($timePeriods, $id) {
+      $foundItems = array_filter($timePeriods, function ($item) use ($id) {
+         return $item->id == $id;
+      });
+      return array_shift($foundItems);
+   }
 
-        $periods = array();
+   static public function findTimePeriodByMonthAndDay($timePeriods, $date) {
+      $foundItems = array_filter($timePeriods, function ($item) use ($date) {
+         return strtotime($item->startDate) <= strtotime($date) && strtotime($item->endDate) >= strtotime($date);
+      });
+      return array_shift($foundItems);
+   }
 
-        foreach ($jsonData as $item) {
-            $last = null;
-            if ($item->prevID) {
-                $last = self::findTimePeriodWithID($periods, $item->prevID);
-            }
-
-            $period = new TimePeriod($last);
-            $period->id = $item->id;
-            $period->name = $item->name;
-            $period->startDate = $item->start;
-            $period->endDate = $item->end;
-
-            $periods[] = $period;
-        }
-
-        return $periods;
-    }
-
-    static public function findTimePeriodWithID($timePeriods, $id) {
-        $foundItems = array_filter($timePeriods, function ($item) use ($id) {
-            return $item->id == $id;
-        });
-
-        return array_shift($foundItems);
-    }
-
-    static public function findTimePeriodByMonthAndDay($timePeriods, $date) {
-        $foundItems = array_filter($timePeriods, function ($item) use ($date) {
-            return strtotime($item->startDate) <= strtotime($date) && strtotime($item->endDate) >= strtotime($date);
-        });
-
-        return array_shift($foundItems);
-    }
-
-    static public function fetchTimePeriodByMonthAndDay($date) {
-        return self::findTimePeriodByMonthAndDay(self::all_time_periods(), $date);
-    }
+   static public function fetchTimePeriodByMonthAndDay($date) {
+      return self::findTimePeriodByMonthAndDay(self::all_time_periods(), $date);
+   }
 
 
-    /**
-     * Builds an array of the the names of the given TimePeriods
-     *
-     * @param $timePeriods array - list of TimePeriods
-     * @return array(string, ...)
-     */
-    static public function fetch_names($timePeriods = null) {
-        return self::fetch_field('name', $timePeriods);
-    }
+   /**
+    * Builds an array of the the names of the given TimePeriods
+    *
+    * @param $timePeriods array - list of TimePeriods
+    * @return array(string, ...)
+    */
+   static public function fetch_names($timePeriods = null) {
+      return self::fetch_field('name', $timePeriods);
+   }
 
 
-    /**
-     * Builds an array of the field of the given TimePeriods
-     *
-     * @param $field string - name of the field ot fetch
-     * @param $timePeriods array - list of TimePeriods
-     * @param $skipHasNullParent bool - allows control for skipping 'inital' period
-     * @return array(string, ...)
-     */
-    static public function fetch_field($field, $timePeriods = null, $skipHasNullParent = true) {
-        if (!$timePeriods) {
-            $timePeriods = self::all_time_periods();
-        }
+   /**
+    * Builds an array of the field of the given TimePeriods
+    *
+    * @param $field string - name of the field ot fetch
+    * @param $timePeriods array - list of TimePeriods
+    * @param $skipHasNullParent bool - allows control for skipping 'inital' period
+    * @return array(string, ...)
+    */
+   static public function fetch_field($field, $timePeriods = null, $skipHasNullParent = true) {
+      if (!$timePeriods) {
+         $timePeriods = self::all_time_periods();
+      }
 
-        return array_reduce($timePeriods, function($carry, $timePeriod) use ($skipHasNullParent, $field) {
-            // Skip 'Initial' time period
-            if ($skipHasNullParent && $timePeriod->LastPeriod() == null) {
-                return $carry;
-            }
-
-           $carry[] = $timePeriod->$field;
-           return $carry;
-        }, array());
-    }
+      return array_reduce($timePeriods, function($carry, $timePeriod) use ($skipHasNullParent, $field) {
+         // Skip 'Initial' time period
+         if ($skipHasNullParent && $timePeriod->LastPeriod() == null) {
+            return $carry;
+         }
+         $carry[] = $timePeriod->$field;
+         return $carry;
+      }, array());
+   }
 }
