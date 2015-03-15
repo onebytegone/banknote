@@ -99,18 +99,31 @@ class TimePeriod {
      * @return array(string, ...)
      */
     static public function fetch_names($timePeriods = null) {
+        return self::fetch_field('name', $timePeriods);
+    }
+
+
+    /**
+     * Builds an array of the field of the given TimePeriods
+     *
+     * @param $field string - name of the field ot fetch
+     * @param $timePeriods array - list of TimePeriods
+     * @param $skipHasNullParent bool - allows control for skipping 'inital' period
+     * @return array(string, ...)
+     */
+    static public function fetch_field($field, $timePeriods = null, $skipHasNullParent = true) {
         if (!$timePeriods) {
             $timePeriods = self::all_time_periods();
         }
 
-        return array_reduce($timePeriods, function($carry, $timePeriod) {
+        return array_reduce($timePeriods, function($carry, $timePeriod) use ($skipHasNullParent, $field) {
             // Skip 'Initial' time period
-            if ($timePeriod->LastPeriod() == null) {
+            if ($skipHasNullParent && $timePeriod->LastPeriod() == null) {
                 return $carry;
             }
 
-           $carry[] = $timePeriod->name;
+           $carry[] = $timePeriod->$field;
            return $carry;
-        }, array(''));
+        }, array());
     }
 }

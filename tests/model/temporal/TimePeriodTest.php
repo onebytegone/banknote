@@ -98,5 +98,27 @@ class TimePeriodTest extends PHPUnit_Framework_TestCase {
       $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "12/11"));
       $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "6/2"));
    }
+
+   public function testFetchField() {
+      $initial = new TimePeriod();
+      $jan = new TimePeriod($initial);
+      $jan->id = "jan";
+      $feb = new TimePeriod($jan);
+      $feb->id = "feb";
+
+      $target = array('jan', 'feb');
+      $this->assertEquals($target, TimePeriod::fetch_field('id', array($jan, $feb)));
+   }
+
+   public function testFetchName() {
+      $initial = new TimePeriod();
+      $jan = new TimePeriod($initial);
+      $jan->name = "January";
+      $feb = new TimePeriod($jan);
+      $feb->name = "Febuary";
+
+      $target = array('January', 'Febuary');
+      $this->assertEquals($target, TimePeriod::fetch_names(array($jan, $feb)));
+   }
 }
 
