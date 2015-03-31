@@ -7,18 +7,22 @@
  */
 
 class ItemStoreGeneralFormatter {
-   public function formatByTimePeriod($itemStores, $timePeriods, $fieldFormatter) {
+   public function formatByTimePeriod($itemStores, $timePeriods, $fieldFormatter, $fieldCombiner) {
       $output = array();
 
       $output['header'] = TimePeriod::fetch_names($timePeriods);
 
-      $self = $this;
-      $output['items'] = array_reduce(array_keys($itemStores), function ($output, $name) use ($self, $fieldFormatter, $timePeriods, $itemStores) {
-         $items = $itemStores[$name]->generateValueSummary($fieldFormatter, $timePeriods);
+      $storeArrayMap = new ItemStoreArrayMap();
+      $output['items'] = array_map(function ($store) use ($storeArrayMap, $timePeriods, $fieldFormatter, $fieldCombiner) {
+         $storeEntries = $storeArrayMap->format($store, $timePeriods);
 
-         $output[$name] = $items;
-         return $output;
-      }, array());
+         $items = array_map(function ($entryList) use ($fieldCombiner, $fieldFormatter) {
+            $entry = $fieldCombiner->combine($entryList);
+            return $fieldFormatter->format($entry);
+         }, $storeEntries);
+
+         return $items;
+      }, $itemStores);
 
       return $output;
    }

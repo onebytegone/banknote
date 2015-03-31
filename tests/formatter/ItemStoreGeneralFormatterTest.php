@@ -28,28 +28,22 @@ class ItemStoreGeneralFormatterTest extends PHPUnit_Framework_TestCase {
          'header' => TimePeriod::fetch_names(),
          'items' => array(
             'store a' => array(
-               1 => 4,
-               3 => 2,
-               5 => 9,
+               'jan' => '4',
+               'mar' => '2',
+               'may' => '9',
             ),
             'store b' => array(
-               2 => 6,
-               7 => 9,
+               'feb' => '6',
+               'july' => '9',
             ),
          )
       );
 
-      $mockFormatter = $this->getMock('SingleAmountEntryOutputFormatter', array('formatObject'));
-      $mockFormatter
-         ->expects($this->any())
-         ->method('formatObject')
-         ->will($this->returnCallback(function($obj) {
-            return $obj->amount;
-         }));
-
+      $fieldFormatter = new EntryFieldFormatter('amount');
+      $entryCombiner = new EntrySumCombiner();
       $formatter = new ItemStoreGeneralFormatter();
 
-      $this->assertEquals($target, $formatter->formatByTimePeriod($source, TimePeriod::all_time_periods(), $mockFormatter));
+      $this->assertEquals($target, $formatter->formatByTimePeriod($source, TimePeriod::all_time_periods(), $fieldFormatter, $entryCombiner));
    }
 
    private function makeAmountEntry($value, $timePeriodIndex, $category = null) {
