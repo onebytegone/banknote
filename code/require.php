@@ -13,6 +13,7 @@ require 'calculate/AmountCalculate.php';
 require 'formatter/ItemStoreTableFormatter.php';
 require 'formatter/ItemStoreGeneralFormatter.php';
 require 'formatter/store/ItemStoreArrayMap.php';
+require 'formatter/combiner/EntrySumCombiner.php';
 require 'formatter/entry/EntryFieldFormatter.php';
 require 'formatter/entry/EntryFormatOutput.php';
 require 'formatter/entry/SingleAmountEntryOutputFormatter.php';
