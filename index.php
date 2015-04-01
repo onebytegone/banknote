@@ -33,21 +33,11 @@ $finalPackage = array_reduce($steps, function ($package, $step) {
 
 
 // Generate output
-$tableFormatter = new ItemStoreTableFormatter();
-//TEMP
-$incomeEntryStore = $finalPackage['sto_usr_income_entries'];
-echo $tableFormatter->buildListTableOfEntries(
-   $incomeEntryStore->allItems(),
-   new IncomeEntrySummaryFormatter(),
-   array('date', 'source', 'amount')
-);
+$interfaceCreator = new InterfaceCreator();
 
-$incomeTotalStore = $finalPackage['sto_income_total'];
-echo $tableFormatter->buildTableByTimePeriod(
-   array($incomeTotalStore),
-   array_slice(TimePeriod::all_time_periods(), 1),
-   new SingleAmountEntryOutputFormatter("$%.2f"),
-   TimePeriod::fetch_names()
-);
+$tableGenerator = new OutputTableGenerator();
+$tableGenerator->fieldName = 'sto_usr_income_entries';
 
+$interfaceCreator->generators = array($tableGenerator);
 
+echo $interfaceCreator->buildInterface($finalPackage);

@@ -29,3 +29,6 @@ require 'factory/IncomeEntryFactory.php';
 require 'factory/AmountEntryFactory.php';
 require 'factory/ExpenseEntryFactory.php';
 require 'factory/CalculationStepFactory.php';
+require 'interface/InterfaceCreator.php';
+require 'interface/generator/OutputTableGenerator.php';
+
