@@ -19,12 +19,21 @@ class ItemStoreArrayMapTest extends PHPUnit_Framework_TestCase {
             $this->makeAmountEntry(4, 1),
             $this->makeAmountEntry(4, 1),
          ),
+         'feb' => array(),
          'mar' => array(
             $this->makeAmountEntry(2, 3)
          ),
+         'april' => array(),
          'may' => array(
             $this->makeAmountEntry(9, 5)
          ),
+         'june' => array(),
+         'july' => array(),
+         'aug' => array(),
+         'sept' => array(),
+         'oct' => array(),
+         'nov' => array(),
+         'dec' => array(),
       );
 
       $formatter = new ItemStoreArrayMap();

@@ -7,6 +7,8 @@
  */
 
 class ItemStoreArrayMap {
+   public $filterEmptyItems = false;
+
    /**
     *
     * Output:
@@ -30,10 +32,12 @@ class ItemStoreArrayMap {
          return array_values($itemStore->itemsForTimePeriod($period));
       }, $keyedIDs);
 
-      // Trim To: { 'jan': '[ AmountEntry ], 'feb': [ AmountEntry, AmountEntry ] }
-      $output = array_filter($output, function($item) {
-         return $item && is_array($item) && count($item) > 0;
-      });
+      if ($this->filterEmptyItems) {
+         // Trim To: { 'jan': '[ AmountEntry ], 'feb': [ AmountEntry, AmountEntry ] }
+         $output = array_filter($output, function($item) {
+            return $item && is_array($item) && count($item) > 0;
+         });
+      }
 
       return $output;
    }
