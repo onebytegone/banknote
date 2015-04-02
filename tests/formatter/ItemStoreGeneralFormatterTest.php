@@ -29,17 +29,36 @@ class ItemStoreGeneralFormatterTest extends PHPUnit_Framework_TestCase {
          'items' => array(
             'store a' => array(
                'jan' => '4',
+               'feb' => '',
                'mar' => '2',
+               'april' => '',
                'may' => '9',
+               'june' => '',
+               'july' => '',
+               'aug' => '',
+               'sept' => '',
+               'oct' => '',
+               'nov' => '',
+               'dec' => '',
             ),
             'store b' => array(
+               'jan' => '',
                'feb' => '6',
+               'mar' => '',
+               'april' => '',
+               'may' => '',
+               'june' => '',
                'july' => '9',
+               'aug' => '',
+               'sept' => '',
+               'oct' => '',
+               'nov' => '',
+               'dec' => '',
             ),
          )
       );
 
-      $fieldFormatter = new EntryFieldFormatter('amount');
+      $fieldFormatter = new EntryFieldFormatter('amount', '%d');
       $entryCombiner = new EntrySumCombiner();
       $formatter = new ItemStoreGeneralFormatter();
 
