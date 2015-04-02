@@ -10,7 +10,8 @@ class EntryFieldFormatter {
 
    public $format;
    public $field;
-   public $returnEmptyWhenEmpty = false;
+   public $defaultReturn = '';
+   public $returnDefaultWhenEmpty = false;
 
    function __construct($field = "value", $format = "%f") {
       $this->field = $field;
@@ -18,10 +19,14 @@ class EntryFieldFormatter {
    }
 
    public function format($object) {
+      if (!$object) {
+         return $this->defaultReturn;
+      }
+
       $value = $object->{$this->field};
 
-      if ($this->returnEmptyWhenEmpty && !$value) {
-         return '';
+      if ($this->returnDefaultWhenEmpty && !$value) {
+         return $this->defaultReturn;
       }
 
       return sprintf($this->format, $value);

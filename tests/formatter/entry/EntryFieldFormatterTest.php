@@ -28,16 +28,39 @@ class EntryFieldFormatterTest extends PHPUnit_Framework_TestCase {
 
       // Empty tests
       $formatter = new EntryFieldFormatter('emptyInt');
-      $formatter->returnEmptyWhenEmpty = true;
+      $formatter->returnDefaultWhenEmpty = true;
       $this->assertEquals('', $formatter->format($entry));
 
       $formatter = new EntryFieldFormatter('emptyStr');
-      $formatter->returnEmptyWhenEmpty = true;
+      $formatter->returnDefaultWhenEmpty = true;
       $this->assertEquals('', $formatter->format($entry));
 
       $formatter = new EntryFieldFormatter('nullField');
-      $formatter->returnEmptyWhenEmpty = true;
+      $formatter->returnDefaultWhenEmpty = true;
       $this->assertEquals('', $formatter->format($entry));
+
+      $formatter = new EntryFieldFormatter('nullField');
+      $formatter->defaultReturn = 'cow';
+      $formatter->returnDefaultWhenEmpty = true;
+      $this->assertEquals('cow', $formatter->format($entry));
+
+      $formatter = new EntryFieldFormatter('nullField');
+      $formatter->defaultReturn = 'cow';
+      $this->assertEquals('cow', $formatter->format(null));
+
+      $formatter = new EntryFieldFormatter('nullField');
+      $formatter->defaultReturn = null;
+      $this->assertNull($formatter->format(null));
+
+      $formatter = new EntryFieldFormatter('nullField');
+      $formatter->defaultReturn = 'dog';
+      $formatter->returnDefaultWhenEmpty = true;
+      $this->assertEquals('dog', $formatter->format(null));
+
+      $formatter = new EntryFieldFormatter('nullField');
+      $formatter->defaultReturn = null;
+      $formatter->returnDefaultWhenEmpty = true;
+      $this->assertNull($formatter->format($entry));
    }
 
    private function makeAmountEntry($value, $timePeriodIndex, $category = null) {
