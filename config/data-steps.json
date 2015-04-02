@@ -7,17 +7,9 @@
       }
    },
    {
-      "type": "TotalByCategory",
-      "fields": {
-         "source": "sto_usr_income_to_fund",
-         "category": "source",
-         "output": "arr_income_per_fund"
-      }
-   },
-   {
       "type": "TotalForPeriod",
       "fields": {
-         "source": "arr_income_per_fund",
+         "source": "arr_usr_income_per_fund",
          "output": "sto_assigned_income"
       }
    },
@@ -38,10 +30,17 @@
       }
    },
    {
+      "type": "TotalForPeriod",
+      "fields": {
+         "source": "arr_usr_fund_draw",
+         "output": "sto_total_fund_draw"
+      }
+   },
+   {
       "type": "DifferenceOfStores",
       "fields": {
          "source": "sto_expense_total",
-         "subtrahend": "sto_usr_fund_draw",
+         "subtrahend": "sto_total_fund_draw",
          "output": "sto_unassigned_expenses"
       }
    }
