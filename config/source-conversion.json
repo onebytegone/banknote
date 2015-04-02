@@ -1,0 +1,14 @@
+{
+   "sto_usr_income_entries": {
+      "conversion": "single_store"
+   },
+   "arr_usr_income_per_fund": {
+      "conversion": "array_of_stores"
+   },
+   "sto_usr_expense_entries": {
+      "conversion": "single_store"
+   },
+   "arr_usr_fund_draw": {
+      "conversion": "array_of_stores"
+   }
+}

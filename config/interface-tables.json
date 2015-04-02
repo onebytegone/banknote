@@ -1,0 +1,18 @@
+[
+   {
+      "name": "Income",
+      "type": "list",
+      "object": "income_entries",
+      "fields": {
+         "date": "Date",
+         "source": "Source",
+         "amount": "Amount"
+      }
+   },
+   {
+      "name": "Income Total",
+      "type": "outputTable",
+      "object": "sto_income_total",
+      "hasYearTotals": true
+   }
+]
