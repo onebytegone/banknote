@@ -18,6 +18,7 @@ require 'steps/CalculationStep.php';
 require 'steps/TotalForPeriod.php';
 require 'steps/TotalByCategory.php';
 require 'steps/DifferenceOfStores.php';
+require 'steps/CombineByKey.php';
 require 'factory/EntryFactory.php';
 require 'factory/AmountEntryFactory.php';
 require 'factory/CalculationStepFactory.php';
