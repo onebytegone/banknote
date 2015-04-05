@@ -28,4 +28,11 @@ $finalPackage = array_reduce($steps, function ($package, $step) {
 $interfaceCreator = new InterfaceCreator();
 $interfaceCreator->loadFromConfig(getJSON('config/interface-tables.json'));
 
+
+echo "<html>";
+echo "<head>";
+echo '<link rel="stylesheet" type="text/css" href="theme/css/main.css">';
+echo "</head>";
+echo "<body>";
 echo $interfaceCreator->buildInterface($finalPackage);
+echo "</body></html>";

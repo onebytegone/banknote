@@ -1,0 +1,17 @@
+/* line 1, ../sass/partials/_page.scss */
+html {
+  background-color: #efefef;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+/* line 1, ../sass/partials/_tables.scss */
+table, td, tr {
+  border-collapse: collapse;
+  border: 1px solid #999;
+}
+
+/* line 6, ../sass/partials/_tables.scss */
+td {
+  padding: 4px;
+  min-width: 60px;
+}

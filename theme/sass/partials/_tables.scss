@@ -1,0 +1,9 @@
+table, td, tr {
+   border-collapse: collapse;
+   border: 1px solid $color-table-border;
+}
+
+td {
+   padding: 4px;
+   min-width: 60px;
+}
