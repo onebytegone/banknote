@@ -34,7 +34,7 @@ class CombineByKey extends CalculationStep {
 
       // Handle all items in $a
       $result = array_combine(array_keys($a), array_map(function ($key, $item) use ($b) {
-         if ($b[$key]) {
+         if (isset($b[$key])) {
             $item->storeItems($b[$key]->allItems());
          }
 
