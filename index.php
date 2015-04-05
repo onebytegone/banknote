@@ -26,10 +26,6 @@ $finalPackage = array_reduce($steps, function ($package, $step) {
 
 // Generate output
 $interfaceCreator = new InterfaceCreator();
-
-$tableGenerator = new OutputTableGenerator();
-$tableGenerator->fieldName = 'sto_usr_income_entries';
-
-$interfaceCreator->generators = array($tableGenerator);
+$interfaceCreator->loadFromConfig(getJSON('config/interface-tables.json'));
 
 echo $interfaceCreator->buildInterface($finalPackage);
