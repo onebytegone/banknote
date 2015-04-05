@@ -4,17 +4,21 @@
  * @copyright 2015 Ethan Smith
  */
 
-class OutputTableGenerator {
-   public $fieldName = '';
-
+class OutputTableGenerator extends InterfaceGenerator {
    public function generate($package) {
-      $incomeEntryStore = $package[$this->fieldName];
+      $rows = $package[$this->fieldName];
+      if (!is_array($rows)) {
+         $rows = array($rows);
+      }
 
       $fieldFormatter = new EntryFieldFormatter('amount');
       $entryCombiner = new EntrySumCombiner();
       $formatter = new ItemStoreGeneralFormatter();
       $tableGenerator = new TableGenerator();
-      $data = $formatter->formatByTimePeriod(array( 'income' => $incomeEntryStore), TimePeriod::all_time_periods(), $fieldFormatter, $entryCombiner);
-      return $tableGenerator->buildTable($data, true);
+      $data = $formatter->formatByTimePeriod($rows, TimePeriod::all_time_periods(), $fieldFormatter, $entryCombiner);
+
+      return $this->assemble(
+         $tableGenerator->buildTable($data, true)
+      );
    }
 }

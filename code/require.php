@@ -24,5 +24,6 @@ require 'factory/EntryFactory.php';
 require 'factory/AmountEntryFactory.php';
 require 'factory/CalculationStepFactory.php';
 require 'interface/InterfaceCreator.php';
+require 'interface/generator/InterfaceGenerator.php';
 require 'interface/generator/OutputTableGenerator.php';
 require 'conversion/SourceDataConverter.php';
