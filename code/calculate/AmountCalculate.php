@@ -19,6 +19,10 @@ class AmountCalculate {
     * @return array
     */
    public function differenceOfEntriesByTimePeriod($itemStoreA, $itemStoreB, $timePeriods) {
+      if (!($itemStoreA instanceof TemporalItemStore) || !($itemStoreB instanceof TemporalItemStore)) {
+         throw new Exception("Not supplied with TemporalItemStores", 1);
+      }
+
       return array_reduce($timePeriods, function($store, $timePeriod) use ($itemStoreA, $itemStoreB) {
          $minuend = $itemStoreA->anyItemForTimePeriod($timePeriod);
          $subtrahend = $itemStoreB->anyItemForTimePeriod($timePeriod);
