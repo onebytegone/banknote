@@ -12,6 +12,7 @@ require 'formatter/ItemStoreTableFormatter.php';
 require 'formatter/ItemStoreGeneralFormatter.php';
 require 'formatter/store/ItemStoreArrayMap.php';
 require 'formatter/combiner/EntrySumCombiner.php';
+require 'formatter/object/FieldFormatter.php';
 require 'formatter/object/PrimitiveFieldFormatter.php';
 require 'formatter/ui/TableGenerator.php';
 require 'steps/CalculationStep.php';

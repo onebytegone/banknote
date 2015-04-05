@@ -6,30 +6,16 @@
  * @copyright 2015 Ethan Smith
  */
 
-class PrimitiveFieldFormatter {
+class PrimitiveFieldFormatter extends FieldFormatter {
 
    public $format;
-   public $field;
-   public $defaultReturn = '';
-   public $returnDefaultWhenEmpty = false;
-   public $readableName = null;
 
    function __construct($field = "value", $format = "%f") {
       $this->field = $field;
       $this->format = $format;
    }
 
-   public function format($object) {
-      if (!$object) {
-         return $this->defaultReturn;
-      }
-
-      $value = $object->{$this->field};
-
-      if ($this->returnDefaultWhenEmpty && !$value) {
-         return $this->defaultReturn;
-      }
-
+   public function formatFieldValue($value) {
       return sprintf($this->format, $value);
    }
 }
