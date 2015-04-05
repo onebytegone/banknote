@@ -1,7 +1,7 @@
 [
    {
       "name": "Income",
-      "type": "list",
+      "type": "ListGenerator",
       "object": "sto_usr_income_entries",
       "fields": {
          "date": "Date",
@@ -23,7 +23,7 @@
    },
    {
       "name": "Expenses",
-      "type": "list",
+      "type": "ListGenerator",
       "object": "sto_usr_expense_entries",
       "fields": {
          "date": "Date",
