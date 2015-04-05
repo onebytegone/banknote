@@ -58,7 +58,7 @@ class ItemStoreGeneralFormatterTest extends PHPUnit_Framework_TestCase {
          )
       );
 
-      $fieldFormatter = new EntryFieldFormatter('amount', '%d');
+      $fieldFormatter = new PrimitiveFieldFormatter('amount', '%d');
       $entryCombiner = new EntrySumCombiner();
       $formatter = new ItemStoreGeneralFormatter();
 

@@ -11,7 +11,7 @@ class OutputTableGenerator extends InterfaceGenerator {
          $rows = array($rows);
       }
 
-      $fieldFormatter = new EntryFieldFormatter('amount');
+      $fieldFormatter = new PrimitiveFieldFormatter('amount');
       $entryCombiner = new EntrySumCombiner();
       $formatter = new ItemStoreGeneralFormatter();
       $tableGenerator = new TableGenerator();
