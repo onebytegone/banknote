@@ -4,7 +4,7 @@
  * @copyright 2015 Ethan Smith
  */
 
-class TotalByKeyTest extends StepBaseTest {
+class TotalByKeyTest extends BaseTest {
    public function testTotalByKey() {
       $field = array(
          'multi' => array(
