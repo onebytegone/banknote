@@ -2,7 +2,7 @@
    {
       "name": "Income",
       "type": "list",
-      "object": "income_entries",
+      "object": "sto_usr_income_entries",
       "fields": {
          "date": "Date",
          "source": "Source",
@@ -11,8 +11,36 @@
    },
    {
       "name": "Income Total",
-      "type": "outputTable",
+      "type": "OutputTableGenerator",
       "object": "sto_income_total",
       "hasYearTotals": true
+   },
+   {
+      "name": "Unassigned Income",
+      "type": "OutputTableGenerator",
+      "object": "sto_unassigned_income",
+      "hasYearTotals": false
+   },
+   {
+      "name": "Expenses",
+      "type": "list",
+      "object": "sto_usr_expense_entries",
+      "fields": {
+         "date": "Date",
+         "source": "Note",
+         "amount": "Amount"
+      }
+   },
+   {
+      "name": "Expense Total",
+      "type": "OutputTableGenerator",
+      "object": "sto_expense_total",
+      "hasYearTotals": true
+   },
+   {
+      "name": "Unassigned Expenses",
+      "type": "OutputTableGenerator",
+      "object": "sto_unassigned_expenses",
+      "hasYearTotals": false
    }
 ]
