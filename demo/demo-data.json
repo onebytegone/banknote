@@ -1,17 +1,17 @@
 {
    "sto_usr_income_entries": [
       {
-         "note": "Interest",
+         "name": "Interest",
          "date": "3/15",
          "amount": 100
       },
       {
-         "note": "Paycheck",
+         "name": "Paycheck",
          "date": "3/5",
          "amount": 300
       },
       {
-         "note": "gift",
+         "name": "gift",
          "date": "1/8",
          "amount": 10
       }
@@ -36,22 +36,22 @@
    },
    "sto_usr_expense_entries": [
       {
-         "note": "Hamburger",
+         "name": "Hamburger",
          "date": "2/25",
          "amount": 10
       },
       {
-         "note": "Dinner out",
+         "name": "Dinner out",
          "date": "3/7",
          "amount": 40
       },
       {
-         "note": "Lunch",
+         "name": "Lunch",
          "date": "3/10",
          "amount": 10
       },
       {
-         "note": "Rent",
+         "name": "Rent",
          "date": "4/12",
          "amount": 100
       }

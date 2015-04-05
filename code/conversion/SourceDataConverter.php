@@ -35,7 +35,10 @@ class SourceDataConverter {
       $entries = array_map(function ($item) {
          $entry = new AmountEntry();
          $entry->amount = $item['amount'];
-         $entry->timePeriod = TimePeriod::fetchTimePeriodByMonthAndDay($item['date']);
+         $entry->date = $item['date'];
+         $entry->name = isset($item['name']) ? $item['name'] : '';
+         $entry->note = isset($item['note']) ? $item['note'] : '';
+         $entry->timePeriod = TimePeriod::fetchTimePeriodByMonthAndDay($entry->date);
          return $entry;
       }, $data);
 
