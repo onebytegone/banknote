@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Handles calculating the differnece of two TemporalStores
+ * Handles calculating the difference of two TemporalStores
  * of AmountEntries by the respective time periods.
  *
  * @copyright 2015 Ethan Smith
@@ -33,9 +33,16 @@ class DifferenceOfStores extends CalculationStep {
       $input = $package[$this->source];
       $subtrahendValue = $package[$this->subtrahend];
 
-      $total = $this->amountCalculate->differenceOfEntriesByTimePeriod($input, $subtrahendValue, TimePeriod::all_time_periods());
-
-      $package[$this->output] = $total;
+      if (is_array($input) && is_array($subtrahendValue)) {
+         $keys = array_keys($input);
+         $difference = array_combine($keys, array_map(function ($item, $key) use ($subtrahendValue) {
+            return $this->amountCalculate->differenceOfEntriesByTimePeriod($item, $subtrahendValue[$key], TimePeriod::all_time_periods());
+         }, $input, $keys));
+         $package[$this->output] = $difference;
+      } else {
+         $total = $this->amountCalculate->differenceOfEntriesByTimePeriod($input, $subtrahendValue, TimePeriod::all_time_periods());
+         $package[$this->output] = $total;
+      }
 
       return $package;
    }
