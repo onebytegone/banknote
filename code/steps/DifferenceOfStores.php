@@ -16,6 +16,10 @@ class DifferenceOfStores extends CalculationStep {
       $this->amountCalculate = new AmountCalculate();
    }
 
+   protected function requiredFields() {
+      return array($this->source, $this->subtrahend);
+   }
+
    /**
     * This is the function for subclasses to override
     * instead of calculate().

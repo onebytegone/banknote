@@ -24,9 +24,20 @@ class CalculationStep {
     * @return array - modified package
     */
    public function calculate($package) {
+      if (!$this->packageHasNeededFields($package)) {
+         throw new Exception("Package does not have needed fields [".join($this->requiredFields(), ', ')."]", 1);
+      }
+
       return $this->calculationTask($package);
    }
 
+   public function packageHasNeededFields($package) {
+      return count(array_diff($this->requiredFields(), array_keys($package))) == 0;
+   }
+
+   protected function requiredFields() {
+      return array($this->source);
+   }
 
    /**
     * This is the function for subclasses to override
