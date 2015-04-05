@@ -10,5 +10,8 @@
    },
    "arr_usr_fund_draw": {
       "conversion": "array_of_stores"
+   },
+   "arr_usr_fund_initial": {
+      "conversion": "array_of_stores"
    }
 }

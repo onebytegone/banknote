@@ -43,5 +43,29 @@
          "subtrahend": "sto_total_fund_draw",
          "output": "sto_unassigned_expenses"
       }
+   },
+
+   {
+      "type": "CombineByKey",
+      "fields": {
+         "source": "arr_usr_fund_initial",
+         "additional": "arr_usr_income_per_fund",
+         "output": "arr_fund_values"
+      }
+   },
+   {
+      "type": "TotalByKey",
+      "fields": {
+         "source": "arr_fund_values",
+         "output": "arr_fund_net"
+      }
+   },
+   {
+      "type": "DifferenceOfStores",
+      "fields": {
+         "source": "arr_fund_net",
+         "subtrahend": "arr_usr_income_per_fund",
+         "output": "arr_fund_gross"
+      }
    }
 ]
