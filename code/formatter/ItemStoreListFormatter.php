@@ -7,6 +7,8 @@
  */
 
 class ItemStoreListFormatter {
+   public $entrySort = null;  // class for sort
+
    public function format($itemStore, $timePeriods, $fieldFormatters) {
       $output = array();
 
@@ -14,7 +16,7 @@ class ItemStoreListFormatter {
          return $formatter->readableName;
       }, $fieldFormatters);
 
-      $output['items'] = array_reduce($timePeriods, function($list, $period) use ($itemStore, $fieldFormatters) {
+      $outputItems = array_reduce($timePeriods, function($list, $period) use ($itemStore, $fieldFormatters) {
          $items = $itemStore->itemsForTimePeriod($period);
 
          $list = array_merge($list, array_map(function ($entry) use ($fieldFormatters) {
@@ -25,6 +27,13 @@ class ItemStoreListFormatter {
 
          return $list;
       }, array());
+
+      if ($this->entrySort) {
+         $this->entrySort->sort($outputItems);
+      }
+
+      $output['items'] = $outputItems;
+
 
       return $output;
    }

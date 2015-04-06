@@ -5,10 +5,20 @@
  */
 
 class ListGenerator extends InterfaceGenerator {
+   public $entrySortType = null;
+   public $entrySortField = null;
+
+
    public function generate($package) {
       $rows = $package[$this->fieldName];
 
       $formatter = new ItemStoreListFormatter();
+      if ($this->entrySortType) {
+         $sorter = new $this->entrySortType();
+         $sorter->sortField = $this->entrySortField;
+         $formatter->entrySort = $sorter;
+      }
+
       $data = $formatter->format(
          $rows,
          TimePeriod::all_time_periods(),
@@ -23,5 +33,10 @@ class ListGenerator extends InterfaceGenerator {
       return $this->assemble(
          $tableGenerator->buildTable($data, false)
       );
+   }
+
+   protected function loadSpecialized($config) {
+      $this->entrySortType = $this->field($config, 'sort', null);
+      $this->entrySortField = $this->field($config, 'sortField', null);
    }
 }

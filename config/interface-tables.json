@@ -7,7 +7,9 @@
          "date": "Date",
          "source": "Source",
          "amount": "Amount"
-      }
+      },
+      "sort": "DateSort",
+      "sortField": 0
    },
    {
       "name": "Income Total",
@@ -28,7 +30,9 @@
          "date": "Date",
          "source": "Note",
          "amount": "Amount"
-      }
+      },
+      "sort": "DateSort",
+      "sortField": 0
    },
    {
       "name": "Expense Total",
