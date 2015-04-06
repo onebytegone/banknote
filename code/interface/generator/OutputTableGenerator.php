@@ -15,12 +15,15 @@ class OutputTableGenerator extends InterfaceGenerator {
          $rows = array($rows);
       }
 
-      $fieldFormatter = new PrimitiveFieldFormatter('amount');
-      $entryCombiner = new EntrySumCombiner();
       $formatter = new ItemStoreGeneralFormatter();
-      $tableGenerator = new TableGenerator();
-      $data = $formatter->formatByTimePeriod($rows, TimePeriod::all_time_periods(), $fieldFormatter, $entryCombiner);
+      $data = $formatter->formatByTimePeriod(
+         $rows,
+         TimePeriod::all_time_periods(),
+         new PrimitiveFieldFormatter('amount'),  // How to render the field
+         new EntrySumCombiner()  // How to distill the entries to a single field
+      );
 
+      $tableGenerator = new TableGenerator();
       return $this->assemble(
          $tableGenerator->buildTable($data, $this->showRowLabel)
       );
