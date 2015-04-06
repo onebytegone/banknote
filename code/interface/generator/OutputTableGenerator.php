@@ -7,7 +7,7 @@
 class OutputTableGenerator extends InterfaceGenerator {
 
    public $showRowLabel = false;
-   public $showYearTotal = false;
+   public $statFieldType = null;
 
    public function generate($package) {
       $rows = $package[$this->fieldName];
@@ -16,6 +16,10 @@ class OutputTableGenerator extends InterfaceGenerator {
       }
 
       $formatter = new ItemStoreGeneralFormatter();
+      if ($this->statFieldType) {
+         $formatter->statFieldCombiner = new $this->statFieldType();
+      }
+
       $data = $formatter->formatByTimePeriod(
          $rows,
          TimePeriod::all_time_periods(),
@@ -31,6 +35,6 @@ class OutputTableGenerator extends InterfaceGenerator {
 
    protected function loadSpecialized($config) {
       $this->showRowLabel = $this->field($config, 'rowLabel', false);
-      $this->showYearTotal = $this->field($config, 'hasYearTotals', false);
+      $this->statFieldType = $this->field($config, 'statField', null);
    }
 }

@@ -13,13 +13,12 @@
       "name": "Income Total",
       "type": "OutputTableGenerator",
       "object": "sto_income_total",
-      "hasYearTotals": true
+      "statField": "ItemStoreYearlyTotal"
    },
    {
       "name": "Unassigned Income",
       "type": "OutputTableGenerator",
-      "object": "sto_unassigned_income",
-      "hasYearTotals": false
+      "object": "sto_unassigned_income"
    },
    {
       "name": "Expenses",
@@ -35,12 +34,11 @@
       "name": "Expense Total",
       "type": "OutputTableGenerator",
       "object": "sto_expense_total",
-      "hasYearTotals": true
+      "statField": "ItemStoreYearlyTotal"
    },
    {
       "name": "Unassigned Expenses",
       "type": "OutputTableGenerator",
-      "object": "sto_unassigned_expenses",
-      "hasYearTotals": false
+      "object": "sto_unassigned_expenses"
    }
 ]
