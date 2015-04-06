@@ -30,4 +30,18 @@ class InterfaceGenerator {
 
       return join($parts, "\n");
    }
+
+   protected function field($obj, $name, $default) {
+      return isset($obj[$name]) ? $obj[$name] : $default;
+   }
+
+   public function loadFromConfig($config) {
+      $this->fieldName = $config['object'];
+      $this->name = $config['name'];
+      $this->loadSpecialized($config);
+   }
+
+   protected function loadSpecialized($config) { }
+
+
 }

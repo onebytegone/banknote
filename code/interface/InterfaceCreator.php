@@ -11,8 +11,7 @@ class InterfaceCreator {
          $class = $config['type'];
          if (class_exists($class)) {
             $generator = new $class();
-            $generator->fieldName = $config['object'];
-            $generator->name = $config['name'];
+            $generator->loadFromConfig($config);
             return $generator;
          }
 

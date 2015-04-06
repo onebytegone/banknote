@@ -5,6 +5,10 @@
  */
 
 class OutputTableGenerator extends InterfaceGenerator {
+
+   public $showRowLabel = false;
+   public $showYearTotal = false;
+
    public function generate($package) {
       $rows = $package[$this->fieldName];
       if (!is_array($rows)) {
@@ -18,7 +22,12 @@ class OutputTableGenerator extends InterfaceGenerator {
       $data = $formatter->formatByTimePeriod($rows, TimePeriod::all_time_periods(), $fieldFormatter, $entryCombiner);
 
       return $this->assemble(
-         $tableGenerator->buildTable($data, true)
+         $tableGenerator->buildTable($data, $this->showRowLabel)
       );
+   }
+
+   protected function loadSpecialized($config) {
+      $this->showRowLabel = $this->field($config, 'rowLabel', false);
+      $this->showYearTotal = $this->field($config, 'hasYearTotals', false);
    }
 }
