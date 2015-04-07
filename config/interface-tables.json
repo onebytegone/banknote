@@ -18,6 +18,13 @@
       "statField": "ItemStoreYearlyTotal"
    },
    {
+      "name": "Fund Routing",
+      "type": "OutputTableGenerator",
+      "object": "arr_usr_income_per_fund",
+      "statField": "ItemStoreYearlyTotal",
+      "rowLabel": true
+   },
+   {
       "name": "Unassigned Income",
       "type": "OutputTableGenerator",
       "object": "sto_unassigned_income"
