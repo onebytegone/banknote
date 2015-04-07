@@ -32,15 +32,8 @@ class SourceDataConverter {
    }
 
    public function createStore($data) {
-      $entries = array_map(function ($item) {
-         $entry = new AmountEntry();
-         $entry->amount = $item['amount'];
-         $entry->date = $item['date'];
-         $entry->name = isset($item['name']) ? $item['name'] : '';
-         $entry->note = isset($item['note']) ? $item['note'] : '';
-         $entry->timePeriod = TimePeriod::fetchTimePeriodByMonthAndDay($entry->date);
-         return $entry;
-      }, $data);
+      $factory = new AmountEntryFactory();
+      $entries = array_map(array($factory, 'buildEntry'), $data);
 
       return new TemporalItemStore($entries);
    }

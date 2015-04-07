@@ -13,6 +13,9 @@ class AmountEntryFactory extends EntryFactory{
          array(
             'id' => 'id',
             'amount' => 'amount',
+            'date' => 'date',
+            'note' => 'note',
+            'name' => 'name',
             ),
          $data
          );
