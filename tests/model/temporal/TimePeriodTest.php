@@ -88,15 +88,21 @@ class TimePeriodTest extends PHPUnit_Framework_TestCase {
       $item2 = new TimePeriod();
       $item2->startDate = "1/1";
       $item2->endDate = "5/1";
+      $item3 = new TimePeriod();
+      $item3->startDate = "6/1";
+      $item3->endDate = "6/25";
 
-      $items = array($item, $item2);
+      $items = array($item, $item2, $item3);
       $this->assertEquals($item, TimePeriod::findTimePeriodByMonthAndDay($items, "12/20"));
       $this->assertEquals($item2, TimePeriod::findTimePeriodByMonthAndDay($items, "1/2"));
       $this->assertEquals($item2, TimePeriod::findTimePeriodByMonthAndDay($items, "1/1"));
       $this->assertEquals($item2, TimePeriod::findTimePeriodByMonthAndDay($items, "5/1"));
+      $this->assertEquals($item3, TimePeriod::findTimePeriodByMonthAndDay($items, "6/1"));
+      $this->assertEquals($item3, TimePeriod::findTimePeriodByMonthAndDay($items, "6/25"));
+      $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "6/26"));
       $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "5/2"));
       $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "12/11"));
-      $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "6/2"));
+      $this->assertNull(TimePeriod::findTimePeriodByMonthAndDay($items, "7/2"));
    }
 
    public function testFetchField() {
