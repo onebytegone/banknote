@@ -26,8 +26,9 @@ class TableGenerator {
     * );
     */
 
-   public function buildTable($data, $showsRowLabel) {
+   public function buildTable($data, $showsRowLabel, $sanitize = true) {
       $table = new TableElement();
+      $table->sanitize = $sanitize;
 
       $header = $data['header'];
       if ($header && count($header) > 0) {

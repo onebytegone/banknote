@@ -9,13 +9,15 @@
 class TableElement {
 
    public $attributes = array();
+   public $sanitize = true;
 
    private $tableData = '';
 
 
    public function addRow($values) {
-      $rowContents = array_reduce($values, function ($carry, $item) {
-         $value = htmlspecialchars($item);
+      $self = $this;
+      $rowContents = array_reduce($values, function ($carry, $item) use ($self) {
+         $value = $self->sanitize ? htmlspecialchars($item) : $item;
          return $carry."<td>{$value}</td>";
       }, '');
 

@@ -42,6 +42,11 @@
       "sortField": 0
    },
    {
+      "name": "Fund Draw",
+      "type": "InputTableGenerator",
+      "object": "arr_usr_fund_draw"
+   },
+   {
       "name": "Expense Total",
       "type": "OutputTableGenerator",
       "object": "sto_expense_total",
