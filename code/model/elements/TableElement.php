@@ -9,15 +9,18 @@
 class TableElement {
 
    public $attributes = array();
-   public $sanitize = true;
+   public $valuePreprocessor = null;
 
    private $tableData = '';
 
+   function __construct() {
+      $this->valuePreprocessor = new TableValueSanitizer();
+   }
 
    public function addRow($values) {
       $self = $this;
       $rowContents = array_reduce($values, function ($carry, $item) use ($self) {
-         $value = $self->sanitize ? htmlspecialchars($item) : $item;
+         $value = $self->valuePreprocessor->processValue($item);
          return $carry."<td>{$value}</td>";
       }, '');
 

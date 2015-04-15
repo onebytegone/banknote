@@ -35,4 +35,5 @@ require 'interface/generator/InterfaceGenerator.php';
 require 'interface/generator/OutputTableGenerator.php';
 require 'interface/generator/InputTableGenerator.php';
 require 'interface/generator/ListGenerator.php';
+require 'interface/table-sanitizer/TableValueSanitizer.php';
 require 'conversion/SourceDataConverter.php';
