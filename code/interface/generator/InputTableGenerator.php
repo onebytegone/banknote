@@ -16,13 +16,13 @@ class InputTableGenerator extends InterfaceGenerator {
       $data = $formatter->formatByTimePeriod(
          $rows,
          TimePeriod::all_time_periods(),
-         new InputFieldFormatter('amount'),  // How to render the field
+         new PrimitiveFieldFormatter('amount'),  // How to render the field
          new EntrySumCombiner()  // How to distill the entries to a single field
       );
 
       $tableGenerator = new TableGenerator();
       return $this->assemble(
-         $tableGenerator->buildTable($data, true, false)
+         $tableGenerator->buildTable($data, true, new TableValueInputCreator())
       );
    }
 }

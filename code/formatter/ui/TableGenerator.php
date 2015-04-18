@@ -26,9 +26,12 @@ class TableGenerator {
     * );
     */
 
-   public function buildTable($data, $showsRowLabel, $sanitize = true) {
+   public function buildTable($data, $showsRowLabel, $preprocessor = null) {
       $table = new TableElement();
-      $table->sanitize = $sanitize;
+      if ($preprocessor) {
+         // Disable the preprocessor on TableElement
+         $table->valuePreprocessor = null;
+      }
 
       $header = $data['header'];
       if ($header && count($header) > 0) {
@@ -38,8 +41,16 @@ class TableGenerator {
 
       $self = $this;
       $items = $data['items'];
-      $table = array_reduce(array_keys($items), function ($table, $name) use ($self, $items, $showsRowLabel) {
+      $table = array_reduce(array_keys($items), function ($table, $name) use ($self, $items, $showsRowLabel, $preprocessor) {
          $rowData = $items[$name];
+
+         // process the value if needed
+         if ($preprocessor) {
+            $rowData = array_map(function ($value) use ($preprocessor) {
+               return $preprocessor->processValue($value);
+            }, $rowData);
+         }
+
          $self->addLabelToItems($rowData, $showsRowLabel, $name);
          $table->addRow($rowData);
          return $table;

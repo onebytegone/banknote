@@ -19,8 +19,10 @@ class TableElement {
 
    public function addRow($values) {
       $self = $this;
-      $rowContents = array_reduce($values, function ($carry, $item) use ($self) {
-         $value = $self->valuePreprocessor->processValue($item);
+      $rowContents = array_reduce($values, function ($carry, $value) use ($self) {
+         if ($self->valuePreprocessor) {
+            $value = $self->valuePreprocessor->processValue($value);
+         }
          return $carry."<td>{$value}</td>";
       }, '');
 
