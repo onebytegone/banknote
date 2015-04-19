@@ -25,6 +25,22 @@
    {
       "type": "TotalForPeriod",
       "fields": {
+         "source": "arr_usr_account_route",
+         "output": "sto_account_total"
+      }
+   },
+   {
+      "type": "DifferenceOfStores",
+      "fields": {
+         "source": "sto_income_total",
+         "subtrahend": "sto_account_total",
+         "output": "sto_unassigned_to_account"
+      }
+   },
+
+   {
+      "type": "TotalForPeriod",
+      "fields": {
          "source": "sto_usr_expense_entries",
          "output": "sto_expense_total"
       }

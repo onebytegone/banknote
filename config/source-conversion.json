@@ -13,5 +13,8 @@
    },
    "arr_usr_fund_initial": {
       "conversion": "array_of_stores"
+   },
+   "arr_usr_account_route": {
+      "conversion": "array_of_stores"
    }
 }

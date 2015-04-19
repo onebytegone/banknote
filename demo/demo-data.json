@@ -87,5 +87,19 @@
             "amount": 0
          }
       ]
+   },
+   "arr_usr_account_route": {
+      "checking": [
+         {
+            "date": "1/10",
+            "amount": 15
+         }
+      ],
+      "savings": [
+         {
+            "date": "4/20",
+            "amount": 40
+         }
+      ]
    }
 }
