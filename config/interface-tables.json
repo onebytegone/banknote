@@ -19,9 +19,8 @@
    },
    {
       "name": "Fund Routing",
-      "type": "OutputTableGenerator",
+      "type": "InputTableGenerator",
       "object": "arr_usr_income_per_fund",
-      "statField": "ItemStoreYearlyTotal",
       "rowLabel": true
    },
    {
