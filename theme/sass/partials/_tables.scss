@@ -1,3 +1,7 @@
+table {
+   width: 100%;
+}
+
 table, td, tr {
    border-collapse: collapse;
    border: 1px solid $color-table-border;
@@ -7,3 +11,12 @@ td {
    padding: 4px;
    min-width: 60px;
 }
+
+tr {
+   color: $color-table-general-text;
+   &:first-of-type {
+      font-weight: bold;
+      color: $color-table-header-text;
+   }
+}
+

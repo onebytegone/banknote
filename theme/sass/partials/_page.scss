@@ -2,3 +2,9 @@ html {
    background-color: $color-page-background;
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
+
+.page {
+   max-width: 1220px;
+   position: relative;
+   margin: 40px auto;
+}

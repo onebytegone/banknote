@@ -34,5 +34,7 @@ echo "<head>";
 echo '<link rel="stylesheet" type="text/css" href="theme/css/main.css">';
 echo "</head>";
 echo "<body>";
+echo "<div class=\"page\">";
 echo $interfaceCreator->buildInterface($finalPackage);
+echo "</div>";
 echo "</body></html>";
