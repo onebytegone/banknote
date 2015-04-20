@@ -16,5 +16,11 @@
    },
    "arr_usr_account_route": {
       "conversion": "array_of_stores"
+   },
+   "arr_usr_account_draws": {
+      "conversion": "array_of_stores"
+   },
+   "arr_usr_account_initial": {
+      "conversion": "array_of_stores"
    }
 }

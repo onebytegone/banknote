@@ -83,5 +83,14 @@
          "subtrahend": "arr_usr_income_per_fund",
          "output": "arr_fund_gross"
       }
+   },
+
+   {
+      "type": "DifferenceOfStores",
+      "fields": {
+         "source": "arr_usr_account_route",
+         "subtrahend": "arr_usr_account_draws",
+         "output": "arr_sto_accounts"
+      }
    }
 ]

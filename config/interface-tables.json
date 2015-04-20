@@ -66,5 +66,17 @@
       "name": "Unassigned Expenses",
       "type": "OutputTableGenerator",
       "object": "sto_unassigned_expenses"
+   },
+   {
+      "name": "Account Draw",
+      "type": "InputTableGenerator",
+      "object": "arr_usr_account_draws",
+      "rowLabel": true
+   },
+   {
+      "name": "Accounts",
+      "type": "OutputTableGenerator",
+      "object": "arr_sto_accounts",
+      "rowLabel": true
    }
 ]

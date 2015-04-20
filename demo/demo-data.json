@@ -88,6 +88,20 @@
          }
       ]
    },
+   "arr_usr_account_initial": {
+      "food": [
+         {
+            "date": "0/0",
+            "amount": 100
+         }
+      ],
+      "rent": [
+         {
+            "date": "0/0",
+            "amount": 100
+         }
+      ]
+   },
    "arr_usr_account_route": {
       "checking": [
          {
@@ -99,6 +113,20 @@
          {
             "date": "4/20",
             "amount": 40
+         }
+      ]
+   },
+   "arr_usr_account_draws": {
+      "checking": [
+         {
+            "date": "1/10",
+            "amount": 5
+         }
+      ],
+      "savings": [
+         {
+            "date": "4/20",
+            "amount": 20
          }
       ]
    }
