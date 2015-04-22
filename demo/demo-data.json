@@ -129,5 +129,19 @@
             "amount": 20
          }
       ]
+   },
+   "arr_usr_account_eom": {
+      "checking": [
+         {
+            "date": "1/1",
+            "amount": 100
+         }
+      ],
+      "savings": [
+         {
+            "date": "2/1",
+            "amount": 100
+         }
+      ]
    }
 }

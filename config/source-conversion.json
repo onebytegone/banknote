@@ -22,5 +22,8 @@
    },
    "arr_usr_account_initial": {
       "conversion": "array_of_stores"
+   },
+   "arr_usr_account_eom": {
+      "conversion": "array_of_stores"
    }
 }
