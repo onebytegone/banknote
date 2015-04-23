@@ -38,6 +38,12 @@ tr:first-of-type {
   color: #9e9e9e;
 }
 
+/* line 23, ../sass/partials/_tables.scss */
+.list {
+  max-width: 480px;
+  display: block;
+}
+
 /* line 1, ../sass/partials/_input.scss */
 input {
   width: 100%;

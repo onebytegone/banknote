@@ -26,12 +26,14 @@ class TableGenerator {
     * );
     */
 
-   public function buildTable($data, $showsRowLabel, $preprocessor = null) {
+   public function buildTable($data, $showsRowLabel, $preprocessor = null, $className = '') {
       $table = new TableElement();
       if ($preprocessor) {
          // Disable the preprocessor on TableElement
          $table->valuePreprocessor = null;
       }
+
+      $table->attributes = array('class' => $className);
 
       $header = $data['header'];
       if ($header && count($header) > 0) {

@@ -31,7 +31,7 @@ class ListGenerator extends InterfaceGenerator {
 
       $tableGenerator = new TableGenerator();
       return $this->assemble(
-         $tableGenerator->buildTable($data, false)
+         $tableGenerator->buildTable($data, false, null, "list")
       );
    }
 

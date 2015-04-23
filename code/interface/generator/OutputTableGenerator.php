@@ -29,7 +29,7 @@ class OutputTableGenerator extends InterfaceGenerator {
 
       $tableGenerator = new TableGenerator();
       return $this->assemble(
-         $tableGenerator->buildTable($data, $this->showRowLabel)
+         $tableGenerator->buildTable($data, $this->showRowLabel, null, "output-table")
       );
    }
 
