@@ -90,6 +90,65 @@ TemporalItemStore {
 }
 ```
 
+### CombineByKey
+| Field      | Type                        |
+| ---------- | --------------------------- |
+| source     | Array of TemporalItemStores |
+| additional | Array of TemporalItemStores |
+| output     | Array of TemporalItemStores |
+
+For each item in the input array, takes all the AmountEntries for all the TimePeriods from both `source` and `additional`. Then adds them to an new TemporalItemStore, which stored in the same index that the input came from.
+
+Example:
+```
+// Source:
+{
+   "barge": [
+      TemporalItemStore {
+         'jan': [ 5 ],
+         'mar': [ 2 ]
+      },
+      TemporalItemStore {
+         'jan': [ 7 ],
+         'feb': [ 4 ]
+      }
+   ]
+}
+
+// Additional:
+{
+   "barge": [
+      TemporalItemStore {
+         'jan': [ 10 ],
+         'feb': [ 8 ]
+      }
+   ],
+   "dingy": [
+      TemporalItemStore {
+         'jan': [ 5 ],
+         'mar': [ 2 ]
+      }
+   ]
+}
+
+// Output:
+{
+   "barge": [
+      TemporalItemStore {
+         'jan': [ 5, 7, 10 ],
+         'feb': [ 4, 8 ],
+         'mar': [ 2 ]
+      }
+   ],
+   "dingy": [
+      TemporalItemStore {
+         'jan': [ 5 ],
+         'mar': [ 2 ]
+      }
+   ]
+}
+```
+
 ### TotalByKey
 | Field      | Type                        |
 | ---------- | --------------------------- |
