@@ -96,7 +96,7 @@ class AmountCalculate {
     *
     * @param $itemStores TemporalItemStore or array - Source for values
     * @param $timePeriods Array of TimePeriods
-    * @return array
+    * @return TemporalItemStore
     */
    public function sumEntriesByTimePeriod($itemStores, $timePeriods) {
       return array_reduce($timePeriods, function($store, $timePeriod) use ($itemStores) {
@@ -124,7 +124,7 @@ class AmountCalculate {
     * @param $categoryField string - Name of the property on AmountEntry
     *                                that the category is stored in
     * @param $timePeriods Array of TimePeriods
-    * @return array
+    * @return TemporalItemStore
     */
    public function sumEntriesByCategory($itemStore, $categoryField, $timePeriods) {
       return array_reduce($timePeriods, function($store, $timePeriod) use ($itemStore, $categoryField) {
