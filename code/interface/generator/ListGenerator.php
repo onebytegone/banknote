@@ -31,16 +31,15 @@ class ListGenerator extends InterfaceGenerator {
 
       $tableGenerator = new TableGenerator();
       return $this->assemble(
-         $tableGenerator->buildTable($data, false, null)
+         "list",
+         $this->buildContent(
+            $tableGenerator->buildTable($data, false, null)
+         )
       );
    }
 
    protected function loadSpecialized($config) {
       $this->entrySortType = $this->field($config, 'sort', null);
       $this->entrySortField = $this->field($config, 'sortField', null);
-   }
-
-   public function extraStyleClass() {
-      return "list";
    }
 }

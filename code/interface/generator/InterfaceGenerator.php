@@ -24,15 +24,23 @@ class InterfaceGenerator {
       return null;
    }
 
-   public function assemble() {
+   public function assemble($class, $contentItems) {
       $parts = array(
-         '<div class="interface ' . $this->extraStyleClass() . '">',
-         $this->buildHeader($this->name),
+         '<div class="interface ' . $class . '">'
       );
-      $parts = array_merge($parts, array_filter(func_get_args()));
+      $parts = array_merge($parts, $contentItems);
       $parts[] = '</div>';
 
       return join($parts, "\n");
+   }
+
+   public function buildContent() {
+      $parts = array(
+         $this->buildHeader($this->name),
+      );
+      $parts = array_merge($parts, array_filter(func_get_args()));
+
+      return $parts;
    }
 
    protected function field($obj, $name, $default) {
