@@ -8,6 +8,10 @@ class InterfaceGenerator {
    public $fieldName = '';
    public $name = null;
 
+   public function extraStyleClass() {
+
+   }
+
    public function generate($package) {
       return "Error: `generate` is not handled for ".get_class($this);
    }
@@ -22,7 +26,7 @@ class InterfaceGenerator {
 
    public function assemble() {
       $parts = array(
-         '<div class="interface">',
+         '<div class="interface ' . $this->extraStyleClass() . '">',
          $this->buildHeader($this->name),
       );
       $parts = array_merge($parts, array_filter(func_get_args()));

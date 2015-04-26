@@ -1,5 +1,10 @@
 table {
    width: 100%;
+
+   .list & {
+      max-width: 480px;
+      display: block;
+   }
 }
 
 table, td, tr {
@@ -18,9 +23,4 @@ tr {
       font-weight: bold;
       color: $color-table-header-text;
    }
-}
-
-.list {
-   max-width: 480px;
-   display: block;
 }

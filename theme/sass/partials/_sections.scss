@@ -1,0 +1,21 @@
+.input-table, .list {
+   h1 {
+      @extend .fa-pencil;
+      &:before {
+         @extend .fa;
+         margin-right: 10px;
+         color: $color-header-icon;
+      }
+   }
+}
+
+.output-table {
+   h1 {
+      @extend .fa-bar-chart;
+      &:before {
+         @extend .fa;
+         margin-right: 10px;
+         color: $color-header-icon;
+      }
+   }
+}

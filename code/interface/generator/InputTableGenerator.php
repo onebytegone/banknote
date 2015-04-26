@@ -22,7 +22,11 @@ class InputTableGenerator extends InterfaceGenerator {
 
       $tableGenerator = new TableGenerator();
       return $this->assemble(
-         $tableGenerator->buildTable($data, true, new TableValueInputCreator(), "input-table")
+         $tableGenerator->buildTable($data, true, new TableValueInputCreator())
       );
+   }
+
+   public function extraStyleClass() {
+      return "input-table";
    }
 }

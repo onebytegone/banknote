@@ -29,12 +29,16 @@ class OutputTableGenerator extends InterfaceGenerator {
 
       $tableGenerator = new TableGenerator();
       return $this->assemble(
-         $tableGenerator->buildTable($data, $this->showRowLabel, null, "output-table")
+         $tableGenerator->buildTable($data, $this->showRowLabel, null)
       );
    }
 
    protected function loadSpecialized($config) {
       $this->showRowLabel = $this->field($config, 'rowLabel', false);
       $this->statFieldType = $this->field($config, 'statField', null);
+   }
+
+   public function extraStyleClass() {
+      return "output-table";
    }
 }
