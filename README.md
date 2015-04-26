@@ -184,7 +184,7 @@ Example:
    "barge": [
       TemporalItemStore {
          'jan': [ 12 ],
-         'feb': [ 4 ]
+         'feb': [ 4 ],
          'mar': [ 2 ]
       }
    ],
