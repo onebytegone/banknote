@@ -90,6 +90,14 @@
       "fields": {
          "source": "arr_usr_account_route",
          "subtrahend": "arr_usr_account_draws",
+         "output": "arr_sto_account_change"
+      }
+   },
+
+   {
+      "type": "RunningTotal",
+      "fields": {
+         "source": "arr_sto_account_change",
          "output": "arr_sto_accounts"
       }
    }
