@@ -2,7 +2,7 @@
 
 /**
  * Sums all the values of the set
- * Example:
+ * Example: (This assumes that all entries have the same TimePeriod)
  * $input = [
  *    "cat": [ store([ entry(5), entry(5) ]), store([ entry(5) ]) ],
  *    "dog": [ store([ entry(6), entry(2) ]) ]
