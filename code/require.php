@@ -22,7 +22,6 @@ require 'formatter/sort/DateSort.php';
 require 'formatter/sort/ValueSort.php';
 require 'steps/CalculationStep.php';
 require 'steps/TotalForPeriod.php';
-require 'steps/TotalByCategory.php';
 require 'steps/DifferenceOfStores.php';
 require 'steps/CombineByKey.php';
 require 'steps/TotalByKey.php';
