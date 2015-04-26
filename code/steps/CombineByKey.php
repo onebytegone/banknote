@@ -1,19 +1,14 @@
 <?php
 
 /**
- *
+ * Combines all the items in all the TemporalItemStores
+ * into a sigle TemporalItemStore
  *
  * @copyright 2015 Ethan Smith
  */
 
 class CombineByKey extends CalculationStep {
    public $additional = null;  // string
-
-   private $amountCalculate;
-
-   public function __construct() {
-      $this->amountCalculate = new AmountCalculate();
-   }
 
    protected function requiredFields() {
       return array($this->source, $this->additional);
