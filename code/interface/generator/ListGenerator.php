@@ -9,7 +9,7 @@ class ListGenerator extends InterfaceGenerator {
    public $entrySortField = null;
 
 
-   public function generate($package) {
+   public function generate($package, $extraClasses = "") {
       $rows = $package[$this->fieldName];
 
       $formatter = new ItemStoreListFormatter();
@@ -31,7 +31,7 @@ class ListGenerator extends InterfaceGenerator {
 
       $tableGenerator = new TableGenerator();
       return $this->assemble(
-         "list",
+         "list " . $extraClasses,
          $this->buildContent(
             $tableGenerator->buildTable($data, false, null)
          )

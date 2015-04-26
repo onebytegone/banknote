@@ -25,8 +25,9 @@
    },
    {
       "name": "Unassigned to Account",
-      "type": "OutputTableGenerator",
-      "object": "sto_unassigned_to_account"
+      "type": "ComparedTableGenerator",
+      "object": "sto_unassigned_to_account",
+      "compare": "sto_zero"
    },
    {
       "name": "Fund Routing",
@@ -36,8 +37,9 @@
    },
    {
       "name": "Unassigned Income",
-      "type": "OutputTableGenerator",
-      "object": "sto_unassigned_income"
+      "type": "ComparedTableGenerator",
+      "object": "sto_unassigned_income",
+      "compare": "sto_zero"
    },
    {
       "name": "Expenses",
@@ -64,8 +66,9 @@
    },
    {
       "name": "Unassigned Expenses",
-      "type": "OutputTableGenerator",
-      "object": "sto_unassigned_expenses"
+      "type": "ComparedTableGenerator",
+      "object": "sto_unassigned_expenses",
+      "compare": "sto_zero"
    },
    {
       "name": "Account Draw",

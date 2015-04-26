@@ -284,14 +284,15 @@
 }
 
 /* line 16, ../font/font-awesome-4.3.0/scss/_icons.scss */
-.fa-check:before {
+.fa-check:before, .output-table.compared.equal h1:before {
   content: "";
 }
 
 /* line 17, ../font/font-awesome-4.3.0/scss/_icons.scss */
 .fa-remove:before,
 .fa-close:before,
-.fa-times:before {
+.fa-times:before,
+.output-table.compared.not-equal h1:before {
   content: "";
 }
 
@@ -2952,7 +2953,15 @@ input {
   color: #9f9f9f;
 }
 
-/* line 15, ../sass/partials/_sections.scss */
+/* line 17, ../sass/partials/_sections.scss */
+.output-table.compared.equal h1:before {
+  color: #7CB342;
+}
+/* line 25, ../sass/partials/_sections.scss */
+.output-table.compared.not-equal h1:before {
+  color: #F4511E;
+}
+/* line 33, ../sass/partials/_sections.scss */
 .output-table h1:before {
   margin-right: 10px;
   color: #9f9f9f;

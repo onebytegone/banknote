@@ -143,5 +143,20 @@
             "amount": 100
          }
       ]
-   }
+   },
+   "sto_zero": [
+      { "date": "0/0", "amount": 0 },
+      { "date": "1/1", "amount": 0 },
+      { "date": "2/1", "amount": 0 },
+      { "date": "3/1", "amount": 0 },
+      { "date": "4/1", "amount": 0 },
+      { "date": "5/1", "amount": 0 },
+      { "date": "6/1", "amount": 0 },
+      { "date": "7/1", "amount": 0 },
+      { "date": "8/1", "amount": 0 },
+      { "date": "9/1", "amount": 0 },
+      { "date": "10/1", "amount": 0 },
+      { "date": "11/1", "amount": 0 },
+      { "date": "12/1", "amount": 0 }
+   ]
 }

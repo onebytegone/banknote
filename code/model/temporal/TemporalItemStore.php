@@ -98,4 +98,39 @@ class TemporalItemStore {
          return array_merge($carry, $store->itemsForTimePeriod($timePeriod));
       }, array());
    }
+
+   /**
+    * Compares two sets of TemporalItemStores.
+    *
+    * @param $storesA array - Array of TemporalItemStores
+    * @param $storesB array - Array of TemporalItemStores
+    * @return array
+    */
+   static public function compare_stores($storesA, $storesB) {
+      // Make sure we always use an array
+      if (!is_array($storesA)) {
+         $storesA = array($storesA);
+      }
+      if (!is_array($storesB)) {
+         $storesB = array($storesB);
+      }
+
+      $diff = array_udiff($storesA, $storesB, array('self', 'compare_single_stores'));
+      return count($diff) == 0;
+   }
+
+   /**
+    * Compares two of TemporalItemStores.
+    *
+    * @param $storeA array - TemporalItemStore
+    * @param $storeB array - TemporalItemStore
+    * @return array
+    */
+   static public function compare_single_stores($storeA, $storeB) {
+      $diff = array_udiff($storeA->allItems(), $storeB->allItems(), function($a, $b) {
+         return AmountEntry::compare($a, $b) ? 0 : 1;
+      });
+
+      return count($diff);
+   }
 }

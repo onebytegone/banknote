@@ -11,4 +11,8 @@ class AmountEntry extends TemporalItem {
    public $date = '';
    public $name = '';
    public $note = '';
+
+   static public function compare($a, $b) {
+      return $a == $b;
+   }
 }

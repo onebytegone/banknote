@@ -9,7 +9,7 @@ class OutputTableGenerator extends InterfaceGenerator {
    public $showRowLabel = false;
    public $statFieldType = null;
 
-   public function generate($package) {
+   public function generate($package, $extraClasses = "") {
       $rows = $package[$this->fieldName];
       if (!is_array($rows)) {
          $rows = array($rows);
@@ -29,7 +29,7 @@ class OutputTableGenerator extends InterfaceGenerator {
 
       $tableGenerator = new TableGenerator();
       return $this->assemble(
-         "output-table",
+         "output-table " . $extraClasses,
          $this->buildContent(
             $tableGenerator->buildTable($data, $this->showRowLabel, null)
          )

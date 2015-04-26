@@ -6,7 +6,7 @@
 
 class InputTableGenerator extends InterfaceGenerator {
 
-   public function generate($package) {
+   public function generate($package, $extraClasses = "") {
       $rows = $package[$this->fieldName];
       if (!is_array($rows)) {
          $rows = array($rows);
@@ -22,7 +22,7 @@ class InputTableGenerator extends InterfaceGenerator {
 
       $tableGenerator = new TableGenerator();
       return $this->assemble(
-         "input-table",
+         "input-table " . $extraClasses,
          $this->buildContent(
             $tableGenerator->buildTable($data, true, new TableValueInputCreator())
          )

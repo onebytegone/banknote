@@ -10,6 +10,24 @@
 }
 
 .output-table {
+   &.compared {
+      &.equal {
+         h1 {
+            @extend .fa-check;
+            &:before {
+               color: $color-equal;
+            }
+         }
+      }
+      &.not-equal {
+         h1 {
+            @extend .fa-times;
+            &:before {
+               color: $color-not-equal;
+            }
+         }
+      }
+   }
    h1 {
       @extend .fa-bar-chart;
       &:before {

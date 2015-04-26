@@ -12,7 +12,7 @@ class InterfaceGenerator {
 
    }
 
-   public function generate($package) {
+   public function generate($package, $extraClasses = "") {
       return "Error: `generate` is not handled for ".get_class($this);
    }
 

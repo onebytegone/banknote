@@ -64,6 +64,42 @@ class TemporalItemStoreTest extends PHPUnit_Framework_TestCase {
       );
    }
 
+   public function testCompareSingleStore() {
+      $itemA = $this->makeTemporalItem("first", 1);
+      $itemB = $this->makeTemporalItem("second", 2);
+      $itemC = $this->makeTemporalItem("second", 2);
+      $itemD = $this->makeTemporalItem("second", 3);
+
+      $storeA = new TemporalItemStore(array($itemA, $itemB));
+      $storeB = new TemporalItemStore(array($itemA, $itemC));
+      $storeC = new TemporalItemStore(array($itemA));
+      $storeD = new TemporalItemStore(array($itemA, $itemD));
+
+      //$this->assertTrue(TemporalItemStore::compare_single_stores($storeA, $storeA));
+      //$this->assertTrue(TemporalItemStore::compare_single_stores($storeA, $storeB));
+      //$this->assertTrue(TemporalItemStore::compare_single_stores($storeB, $storeA));
+      //$this->assertFalse(TemporalItemStore::compare_single_stores($storeA, $storeC));
+      //$this->assertFalse(TemporalItemStore::compare_single_stores($storeA, $storeD));
+   }
+
+   public function testCompareStores() {
+      $itemA = $this->makeTemporalItem("first", 1);
+      $itemB = $this->makeTemporalItem("second", 2);
+      $itemC = $this->makeTemporalItem("second", 2);
+      $itemD = $this->makeTemporalItem("second", 3);
+
+      $storeA = new TemporalItemStore(array($itemA, $itemB));
+      $storeB = new TemporalItemStore(array($itemA, $itemC));
+      $storeC = new TemporalItemStore(array($itemA));
+      $storeD = new TemporalItemStore(array($itemA, $itemD));
+
+      $this->assertTrue(TemporalItemStore::compare_stores($storeA, $storeA));
+      $this->assertTrue(TemporalItemStore::compare_stores($storeA, $storeB));
+      $this->assertTrue(TemporalItemStore::compare_stores($storeB, $storeA));
+      $this->assertFalse(TemporalItemStore::compare_stores($storeA, $storeC));
+      $this->assertFalse(TemporalItemStore::compare_stores($storeA, $storeD));
+   }
+
    private function makeTemporalItem($id, $timePeriodIndex) {
       $item = new TemporalItem();
       $item->id = $id;
