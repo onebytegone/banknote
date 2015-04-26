@@ -196,3 +196,51 @@ Example:
    ]
 }
 ```
+
+### RunningTotal
+| Field      | Type                        |
+| ---------- | --------------------------- |
+| source     | Array of TemporalItemStores |
+| output     | Array of TemporalItemStores |
+
+For each store in the input array, takes all the AmountEntries per TimePeriod and add their values together. The total for the TimePeriod is then added to a running total. The total is put into a new each AmountEntry and is placed in a new TemporalItemStore for the same TimePeriod. That new TemporalItemStore is stored in the same index that the input came from.
+
+Example:
+```
+// Source:
+{
+   "barge": [
+      TemporalItemStore {
+         'jan': [ 5 ],
+         'mar': [ 2 ]
+      },
+      TemporalItemStore {
+         'jan': [ 7 ],
+         'feb': [ 4 ]
+      }
+   ],
+   "dingy": [
+      TemporalItemStore {
+         'jan': [ 5 ],
+         'mar': [ 2 ]
+      }
+   ]
+}
+
+// Output:
+{
+   "barge": [
+      TemporalItemStore {
+         'jan': [ 12 ],
+         'feb': [ 16 ],
+         'mar': [ 18 ]
+      }
+   ],
+   "dingy": [
+      TemporalItemStore {
+         'jan': [ 5 ],
+         'mar': [ 7 ]
+      }
+   ]
+}
+```

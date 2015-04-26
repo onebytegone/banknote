@@ -24,6 +24,7 @@ require 'steps/CalculationStep.php';
 require 'steps/TotalForPeriod.php';
 require 'steps/DifferenceOfStores.php';
 require 'steps/CombineByKey.php';
+require 'steps/RunningTotal.php';
 require 'steps/TotalByKey.php';
 require 'factory/EntryFactory.php';
 require 'factory/AmountEntryFactory.php';

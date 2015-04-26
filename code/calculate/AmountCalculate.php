@@ -90,6 +90,33 @@ class AmountCalculate {
    }
 
    /**
+    * Sums the values in the item stores, adding the running total as needed.
+    *
+    * @param $itemStores TemporalItemStore or array - Source for values
+    * @param $timePeriods Array of TimePeriods
+    * @return TemporalItemStore
+    */
+   public function calculateRunningTotal($itemStores, $timePeriods) {
+      $runningTotal = 0;
+      return array_reduce($timePeriods, function($store, $timePeriod) use ($itemStores, &$runningTotal) {
+         $items = TemporalItemStore::all_items_by_time_period($itemStores, $timePeriod);
+
+         // Generate sum of entries
+         $summedEntry = new AmountEntry();
+         $summedEntry->amount = $this->totalAmountForEntries($items);
+         $summedEntry->timePeriod = $timePeriod;
+
+         // Add and update running total
+         $summedEntry->amount = $summedEntry->amount + $runningTotal;
+         $runningTotal = $summedEntry->amount;
+
+         // Save sum
+         $store->storeItem($summedEntry);
+         return $store;
+      }, new TemporalItemStore());
+   }
+
+   /**
     * For each TimePeriod in $timePeriods, add the value of all the AmountEntrys
     * together into a new AmountEntry. Store that new entry into the store that
     * will be returned.
