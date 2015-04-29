@@ -87,5 +87,12 @@
       "type": "InputTableGenerator",
       "object": "arr_usr_account_eom",
       "rowLabel": true
+   },
+   {
+      "name": "Account Balanced",
+      "type": "ComparedTableGenerator",
+      "object": "arr_usr_account_eom",
+      "compare": "arr_sto_accounts",
+      "rowLabel": true
    }
 ]
