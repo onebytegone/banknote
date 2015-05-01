@@ -29,6 +29,10 @@ $interfaceCreator = new InterfaceCreator();
 $interfaceCreator->loadFromConfig(getJSON('config/interface-tables.json'));
 
 
+// Exporter
+$exporter = new PackageExporter();
+
+
 echo "<html>";
 echo "<head>";
 echo '<link rel="stylesheet" type="text/css" href="theme/css/main.css">';
@@ -36,5 +40,8 @@ echo "</head>";
 echo "<body>";
 echo "<div class=\"page\">";
 echo $interfaceCreator->buildInterface($finalPackage);
+echo "</div>";
+echo "<div id=\"exports\">";
+echo json_encode($exporter->exportPackage($finalPackage));
 echo "</div>";
 echo "</body></html>";

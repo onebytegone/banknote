@@ -38,3 +38,4 @@ require 'interface/generator/ComparedTableGenerator.php';
 require 'interface/table-sanitizer/TableValueSanitizer.php';
 require 'interface/table-sanitizer/TableValueInputCreator.php';
 require 'conversion/SourceDataConverter.php';
+require 'data-io/PackageExporter.php';
