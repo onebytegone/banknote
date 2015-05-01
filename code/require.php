@@ -1,6 +1,7 @@
 <?php
 
 require 'MasterConfigParser.php';
+require 'data-io/PackageExporter.php';
 require 'model/temporal/TimePeriod.php';
 require 'model/temporal/TemporalItem.php';
 require 'model/temporal/TemporalItemStore.php';
@@ -38,4 +39,3 @@ require 'interface/generator/ComparedTableGenerator.php';
 require 'interface/table-sanitizer/TableValueSanitizer.php';
 require 'interface/table-sanitizer/TableValueInputCreator.php';
 require 'conversion/SourceDataConverter.php';
-require 'data-io/PackageExporter.php';

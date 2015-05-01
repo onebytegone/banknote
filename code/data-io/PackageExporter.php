@@ -17,7 +17,16 @@ class PackageExporter {
                 return $self->exportPackage($item);
             }
 
+            if ($item instanceof PackageIO) {
+                return $item->exportToPackage();
+            }
+
             return $item;
         }, $package);
     }
+}
+
+interface PackageIO {
+    static public function buildFromPackage($data);
+    public function exportToPackage();
 }

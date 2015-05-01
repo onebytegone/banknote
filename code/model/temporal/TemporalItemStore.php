@@ -6,7 +6,7 @@
  * @copyright 2015 Ethan Smith
  */
 
-class TemporalItemStore {
+class TemporalItemStore implements PackageIO {
    private $items = array();
 
    function __construct($items = array()) {
@@ -132,5 +132,21 @@ class TemporalItemStore {
       });
 
       return count($diff);
+   }
+
+
+   /**
+    * Part of interface for PackageIO
+    */
+   public function exportToPackage() {
+      return $this;
+   }
+
+
+   /**
+    * Part of interface for PackageIO
+    */
+   static public function buildFromPackage($data) {
+
    }
 }
