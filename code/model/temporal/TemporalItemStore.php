@@ -139,7 +139,9 @@ class TemporalItemStore implements PackageIO {
     * Part of interface for PackageIO
     */
    public function exportToPackage() {
-      return $this;
+      return array_map(function ($item) {
+         return $item->exportFields();
+      }, $this->allItems());
    }
 
 
